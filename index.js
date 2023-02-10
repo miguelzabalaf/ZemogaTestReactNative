@@ -1,9 +1,12 @@
-/**
- * @format
- */
+import { Navigation } from 'react-native-navigation';
+import { recordScreens } from './src/navigation/helpers/recordScreens';
+import { initRoot } from './src/navigation/roots/init';
 
-import {AppRegistry} from 'react-native';
-import App from './App';
-import {name as appName} from './app.json';
+recordScreens();
+const startAPP = () => {
+  Navigation.events().registerAppLaunchedListener(() => {
+    Navigation.setRoot(initRoot);
+  });
+};
 
-AppRegistry.registerComponent(appName, () => App);
+startAPP();

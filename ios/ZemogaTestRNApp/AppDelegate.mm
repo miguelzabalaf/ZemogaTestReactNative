@@ -1,4 +1,6 @@
 #import "AppDelegate.h"
+#import <ReactNativeNavigation/ReactNativeNavigation.h>
+#import <React/RCTAppSetupUtils.h>
 
 #import <React/RCTBundleURLProvider.h>
 
@@ -6,12 +8,38 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  self.moduleName = @"ZemogaTestRNApp";
+  self.moduleName = @"MyApp";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  BOOL enableTM = NO;
+#if RCT_NEW_ARCH_ENABLED
+  enableTM = self.turboModuleEnabled;
+#endif
+
+  RCTAppSetupPrepareApp(application, enableTM);
+
+  if (!self.bridge) {
+    self.bridge = [self createBridgeWithDelegate:self launchOptions:launchOptions];
+  }
+
+  [ReactNativeNavigation bootstrapWithBridge:self.bridge];
+
+#if RCT_NEW_ARCH_ENABLED
+  _contextContainer = std::make_shared<facebook::react::ContextContainer const>();
+  _reactNativeConfig = std::make_shared<facebook::react::EmptyReactNativeConfig const>();
+  _contextContainer->insert("ReactNativeConfig", _reactNativeConfig);
+  self.bridgeAdapter = [[RCTSurfacePresenterBridgeAdapter alloc] initWithBridge:self.bridge
+                                                               contextContainer:_contextContainer];
+  self.bridge.surfacePresenter = self.bridgeAdapter.surfacePresenter;
+#endif
+
+  return YES;
+}
+
+- (NSArray<id<RCTBridgeModule>> *)extraModulesForBridge:(RCTBridge *)bridge {
+  return [ReactNativeNavigation extraModulesForBridge:bridge];
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
