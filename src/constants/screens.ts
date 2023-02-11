@@ -1,4 +1,4 @@
-import { SplashScreen } from './../screens/splash';
+import { SplashScreen } from '../ui/screens/splash';
 import { Screen } from '../navigation/interfaces';
 import strings from './strings';
 
