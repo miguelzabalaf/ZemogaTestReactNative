@@ -1,0 +1,32 @@
+import React from 'react';
+import { View } from 'react-native-ui-lib';
+import { topBarStyles } from './styles';
+import { Layout } from './../../../ui/containers/layout';
+import { Icon } from './../../../ui/icons';
+import { Touchable } from './../../../ui/containers/touchable';
+import { TopBarProps } from './interfaces/interfaces';
+import { popTo } from './../../../navigation/helpers/navigation';
+
+export function TopBar(props: TopBarProps): JSX.Element {
+  const { hideBorderBottomOfTopBar, showGoBack, lastScreenName } = props;
+  const { containerStyle, contentStyle, containerIconStyle } = topBarStyles({
+    hideBorderBottomOfTopBar,
+  });
+  return (
+    <View style={containerStyle}>
+      <Layout.ContentWithPaddingHorizontal>
+        <View style={contentStyle}>
+          <View style={containerIconStyle}>
+            {showGoBack && (
+              <Touchable onPress={() => popTo({ screenName: lastScreenName })}>
+                <Icon.ArrowLeft />
+              </Touchable>
+            )}
+          </View>
+          <Icon.ZemogaLogo />
+          <View style={containerIconStyle} />
+        </View>
+      </Layout.ContentWithPaddingHorizontal>
+    </View>
+  );
+}

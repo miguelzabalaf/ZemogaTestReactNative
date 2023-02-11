@@ -3,20 +3,36 @@ import { ScrollView } from 'react-native';
 import { ContainerProps } from './../../interfaces';
 import { contentWithPaddingHorizontalStyles, pageStyles } from './styles';
 import { PageProps } from './interfaces';
-import { Spacings, View } from 'react-native-ui-lib';
+import { TopBar } from './../../components/topBar';
+import { SafeAreaSpacerView, Spacings, View } from 'react-native-ui-lib';
+import { usePageController } from '../controllers/usePage.controller';
 
 export function Page(props: PageProps): JSX.Element {
-  const { children, withoutScroll, contentWithoutPaddingTop, center } = props;
+  const {
+    children,
+    withoutScroll,
+    contentWithoutPaddingTop,
+    center,
+    hideTopBar,
+  } = props;
   const { containerStyle, contentStyle } = pageStyles({
     contentWithoutPaddingTop,
     center,
   });
+  const { handleOnScrollContent, hideBorderBottomOfTopBar } =
+    usePageController();
   return (
     <View style={containerStyle}>
+      <SafeAreaSpacerView />
+      {!hideTopBar && (
+        <TopBar hideBorderBottomOfTopBar={hideBorderBottomOfTopBar} />
+      )}
       {withoutScroll ? (
         <View style={contentStyle}>{children}</View>
       ) : (
         <ScrollView
+          scrollEventThrottle={10000}
+          onScroll={handleOnScrollContent}
           contentInsetAdjustmentBehavior="automatic"
           style={contentStyle}>
           {children}
