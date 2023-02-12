@@ -8,7 +8,12 @@ const stacks = {
   posts: 'POSTS_STACK',
 };
 
+const labels = {
+  endOfList: "I've reached the end.",
+};
+
 export default {
   screens,
   stacks,
+  labels,
 };

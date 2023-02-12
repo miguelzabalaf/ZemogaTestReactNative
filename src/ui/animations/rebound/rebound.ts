@@ -2,8 +2,8 @@ import { useRef } from 'react';
 import { Animated } from 'react-native';
 
 const reboundanimationInitialConfig = {
-  scale1: { toValue: 0.95, duration: 100 }, // In
-  scale2: { toValue: 1.05, duration: 25 }, // Out
+  scale1: { toValue: 0.99, duration: 50 }, // In
+  scale2: { toValue: 0.999, duration: 100 }, // Out
   scale3: { toValue: 1, duration: 100 }, // Normal
 };
 

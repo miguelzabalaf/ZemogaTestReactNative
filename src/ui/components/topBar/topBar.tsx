@@ -8,9 +8,9 @@ import { TopBarProps } from './interfaces/interfaces';
 import { popTo } from './../../../navigation/helpers/navigation';
 
 export function TopBar(props: TopBarProps): JSX.Element {
-  const { hideBorderBottomOfTopBar, showGoBack, lastScreenName } = props;
+  const { showBorderBottomOfTopBar, showGoBack, lastScreenName } = props;
   const { containerStyle, contentStyle, containerIconStyle } = topBarStyles({
-    hideBorderBottomOfTopBar,
+    showBorderBottomOfTopBar,
   });
   return (
     <View style={containerStyle}>

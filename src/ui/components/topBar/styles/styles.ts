@@ -4,11 +4,11 @@ import { isIOS } from './../../../../helpers/quickFunctions';
 import { TopBarStyleProps } from '../interfaces';
 
 export function topBarStyles(props: TopBarStyleProps) {
-  const { hideBorderBottomOfTopBar } = props;
+  const { showBorderBottomOfTopBar } = props;
   return ScaledSheet.create({
     containerStyle: {
       backgroundColor: Colors.white,
-      borderBottomColor: hideBorderBottomOfTopBar ? 'transparent' : Colors.gray,
+      borderBottomColor: showBorderBottomOfTopBar ? Colors.gray : 'transparent',
       borderBottomWidth: isIOS() ? 0.2 : 0.55,
       paddingVertical: moderateScale(10),
     },

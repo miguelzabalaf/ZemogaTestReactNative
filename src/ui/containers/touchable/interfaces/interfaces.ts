@@ -1,4 +1,6 @@
-import { TouchableOpacityProps } from 'react-native/types';
+import { TouchableWithoutFeedbackProps } from 'react-native/types';
 import { ContainerProps } from 'src/ui/interfaces/interfaces';
 
-export interface TouchableProps extends ContainerProps, TouchableOpacityProps {}
+export interface TouchableProps
+  extends ContainerProps,
+    TouchableWithoutFeedbackProps {}

@@ -19,13 +19,13 @@ export function Page(props: PageProps): JSX.Element {
     contentWithoutPaddingTop,
     center,
   });
-  const { handleOnScrollContent, hideBorderBottomOfTopBar } =
+  const { handleOnScrollContent, showBorderBottomOfTopBar } =
     usePageController();
   return (
     <View style={containerStyle}>
       <SafeAreaSpacerView />
       {!hideTopBar && (
-        <TopBar hideBorderBottomOfTopBar={hideBorderBottomOfTopBar} />
+        <TopBar showBorderBottomOfTopBar={showBorderBottomOfTopBar} />
       )}
       {withoutScroll ? (
         <View style={contentStyle}>{children}</View>
