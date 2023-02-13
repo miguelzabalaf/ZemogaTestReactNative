@@ -1,5 +1,5 @@
 import { Navigation } from 'react-native-navigation';
-import { screens } from './../../constants/screens';
+import { screens } from './../screens';
 import { ReduxStoreWrapper } from './reduxStoreWrapper';
 
 export function recordScreens() {

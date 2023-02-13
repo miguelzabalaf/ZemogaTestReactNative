@@ -1,6 +1,24 @@
+import { Options } from 'react-native-navigation';
+import { ScreenPorps } from 'src/ui/interfaces';
+
+export interface ScreenComponentProps extends ScreenPorps {
+  [x: string]: unknown;
+}
 export interface Screen {
   [key: string]: {
-    component: (props: unknown) => JSX.Element;
+    component: (props: any) => JSX.Element;
     name: string;
   };
+}
+
+export interface NavigateToProps {
+  screenName: string;
+  componentId: string;
+  props?: { [key: string]: any };
+  options?: Options;
+}
+
+export interface PopToProps {
+  screenName?: string;
+  mergeOptions?: Options;
 }
