@@ -27,7 +27,7 @@ export class PostItem extends PureComponent<PostItemProps> {
                 <Text subTitle>{title}</Text>
               </View>
               <View style={favoriteIconContainerStyle}>
-                <Icon.Srta scale={0.5} />
+                <Icon.Star scale={0.5} />
               </View>
             </View>
           </Touchable>

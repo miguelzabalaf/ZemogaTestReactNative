@@ -1,4 +1,5 @@
 import { ContainerProps } from 'src/ui/interfaces/interfaces';
+import { TopBarProps } from './../../../../ui/components/topBar/interfaces/interfaces';
 
 export interface PageProps extends ContainerProps {
   withoutScroll?: boolean;
@@ -7,6 +8,8 @@ export interface PageProps extends ContainerProps {
   hideTopBar?: boolean;
   showGoBack?: boolean;
   lastScreenName?: string;
+  IconRight?: TopBarProps['IconRight'];
+  onPressIconRight?: TopBarProps['onPressIconRight'];
 }
 
 export interface PageStylesProps {

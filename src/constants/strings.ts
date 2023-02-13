@@ -18,6 +18,7 @@ const labels = {
   call: 'Call',
   email: 'Email',
   website: 'Website',
+  hasBeenAddedToFavorites: 'Has been added to favorites.',
 };
 
 export default {

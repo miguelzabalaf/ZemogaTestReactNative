@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from '../../containers/layout';
-import { Text, View, Spacings, Colors } from 'react-native-ui-lib';
+import { Text, View, Spacings, Colors, Toast } from 'react-native-ui-lib';
 import { PostDetailScreenProps } from './interfaces';
 import strings from './../../../constants/strings';
 import { Separator } from './../../../ui/components/separator';
@@ -8,14 +8,40 @@ import MapView, { Marker } from 'react-native-maps';
 import { postDetailStyles } from './styles';
 import { ButtonIcon } from './../../../ui/components/buttonIcon';
 import { Icon } from './../../../ui/icons';
+import { useActionsController } from './controllers/actions.controller';
 
 export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
   const { lastScreenName, title, body } = props;
   const { containerMapStyle, mapStyle, containerActionsStyle } =
     postDetailStyles();
+  const {
+    // States
+    toastState,
+    // Actions
+    onPressEmail,
+    onPressPhone,
+    onPressWebsite,
+    onPressFavorite,
+    onDismissToast,
+  } = useActionsController();
   return (
-    <Layout.Page showGoBack lastScreenName={lastScreenName}>
+    <Layout.Page
+      showGoBack
+      contentWithoutPaddingTop
+      lastScreenName={lastScreenName}
+      IconRight={() => Icon.Star({ scale: 0.75, color: Colors.gray })}
+      onPressIconRight={onPressFavorite}>
+      <Toast
+        visible={toastState.visible}
+        position={'top'}
+        autoDismiss={1500}
+        onDismiss={onDismissToast}
+        backgroundColor={Colors.primary}
+        message={toastState.message}
+      />
+
       <Layout.ContentWithPaddingHorizontal>
+        <View height={Spacings.s3} />
         <Text textMuted smallText>
           {strings.labels.post}
         </Text>
@@ -66,19 +92,19 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
           <ButtonIcon
             label={strings.labels.email}
             Icon={Icon.Email}
-            onPress={() => {}}
+            onPress={() => onPressEmail('example@me.com')}
             iconColor={Colors.white}
           />
           <ButtonIcon
             label={strings.labels.website}
             Icon={Icon.Website}
-            onPress={() => {}}
+            onPress={() => onPressWebsite('https://github.com/miguelzabalaf')}
             iconColor={Colors.white}
           />
           <ButtonIcon
             label={strings.labels.call}
             Icon={Icon.Phone}
-            onPress={() => {}}
+            onPress={() => onPressPhone('3157707744')}
             iconColor={Colors.white}
           />
         </View>

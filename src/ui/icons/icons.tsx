@@ -44,7 +44,7 @@ export function ArrowLeft(props: SvgProps): JSX.Element {
   );
 }
 
-export function Srta(props: SvgProps): JSX.Element {
+export function Star(props: SvgProps): JSX.Element {
   const { color, style, scale = 1 } = props;
   return (
     <Svg

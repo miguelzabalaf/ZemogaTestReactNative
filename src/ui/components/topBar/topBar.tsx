@@ -8,7 +8,13 @@ import { TopBarProps } from './interfaces/interfaces';
 import { popTo } from './../../../navigation/helpers/navigation';
 
 export function TopBar(props: TopBarProps): JSX.Element {
-  const { showBorderBottomOfTopBar, showGoBack, lastScreenName } = props;
+  const {
+    showBorderBottomOfTopBar,
+    showGoBack,
+    lastScreenName,
+    IconRight,
+    onPressIconRight,
+  } = props;
   const { containerStyle, contentStyle, containerIconStyle } = topBarStyles({
     showBorderBottomOfTopBar,
   });
@@ -24,7 +30,13 @@ export function TopBar(props: TopBarProps): JSX.Element {
             )}
           </View>
           <Icon.ZemogaLogo />
-          <View style={containerIconStyle} />
+          <View style={containerIconStyle}>
+            {IconRight && (
+              <Touchable onPress={onPressIconRight}>
+                <IconRight />
+              </Touchable>
+            )}
+          </View>
         </View>
       </Layout.ContentWithPaddingHorizontal>
     </View>

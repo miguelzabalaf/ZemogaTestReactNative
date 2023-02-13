@@ -16,6 +16,8 @@ export function Page(props: PageProps): JSX.Element {
     hideTopBar,
     showGoBack,
     lastScreenName,
+    IconRight,
+    onPressIconRight,
   } = props;
   const { containerStyle, contentStyle } = pageStyles({
     contentWithoutPaddingTop,
@@ -31,6 +33,8 @@ export function Page(props: PageProps): JSX.Element {
           showBorderBottomOfTopBar={showBorderBottomOfTopBar}
           showGoBack={showGoBack}
           lastScreenName={lastScreenName}
+          IconRight={IconRight}
+          onPressIconRight={onPressIconRight}
         />
       )}
       {withoutScroll ? (
