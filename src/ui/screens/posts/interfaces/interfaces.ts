@@ -5,5 +5,6 @@ export interface UseNavigationControllerProps
   extends NavigationComponentProps {}
 
 export interface PostListProps {
-  goToDetailBy: (post: PostEntity) => void;
+  posts: Array<PostEntity>;
+  goToDetailBy: (postId: PostEntity['id']) => void;
 }

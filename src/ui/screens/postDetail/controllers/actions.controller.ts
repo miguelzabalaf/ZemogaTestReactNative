@@ -1,12 +1,25 @@
 import { useState } from 'react';
 import { Linking } from 'react-native';
 import strings from './../../../../constants/strings';
+import { postActions } from 'src/redux/actions/post.actions';
+import { useDispatch } from 'react-redux';
+import { AddPostIdToFavoritesDispatchAction } from 'src/redux/reducers/post/interfaces';
+import { useActionsControllerProps } from '../interfaces';
+import { getAllFavoritePostelector } from 'src/redux/selectors/post.selector';
+import { Colors } from 'react-native-ui-lib';
 
-export function useActionsController() {
+export function useActionsController(props: useActionsControllerProps) {
+  const { postId } = props;
+  const { actAddPostIdToFavorites } = postActions();
+  const dispatch = useDispatch();
+  const postFavorites = getAllFavoritePostelector();
+  const isFavorite = postFavorites?.includes(postId);
   const [toastState, setToastState] = useState({
     visible: false,
+    color: Colors.primary,
     message: '',
   });
+
   function onPressEmail(email: string) {
     Linking.openURL(`mailto:${email}`);
   }
@@ -20,17 +33,22 @@ export function useActionsController() {
   }
 
   function onPressFavorite() {
-    // TODO: Implement
+    dispatch<AddPostIdToFavoritesDispatchAction>(
+      actAddPostIdToFavorites(postId),
+    );
     setToastState({
       visible: true,
-      message: strings.labels.hasBeenAddedToFavorites,
+      color: isFavorite ? Colors.red30 : Colors.primary,
+      message: isFavorite
+        ? strings.labels.hasBeenRemovedFromFavorites
+        : strings.labels.hasBeenAddedToFavorites,
     });
   }
 
   function onDismissToast() {
     setToastState({
+      ...toastState,
       visible: false,
-      message: '',
     });
   }
 

@@ -6,11 +6,11 @@ import { PostEntity } from './../../../../domain/entities/post.entity';
 export function useNavigationController(props: UseNavigationControllerProps) {
   const { componentId } = props;
 
-  function goToDetailBy(post: PostEntity) {
+  function goToDetailBy(postId: PostEntity['id']) {
     navigateTo({
       componentId,
       screenName: strings.screens.postDetail,
-      props: { ...post },
+      props: { postId },
     });
   }
 

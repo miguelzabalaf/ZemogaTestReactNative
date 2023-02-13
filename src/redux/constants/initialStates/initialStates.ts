@@ -1,5 +1,5 @@
-import { postsReducerInitialState } from './../../../redux/reducers/posts';
+import { postReducerInitialState } from '../../reducers/post';
 
 export const initialStates = {
-  posts: postsReducerInitialState,
+  post: postReducerInitialState,
 };

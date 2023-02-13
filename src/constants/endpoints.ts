@@ -1,6 +1,6 @@
 export const endpoints = {
   post: {
-    getAllPosts: '/posts',
+    getAllPost: '/posts',
   },
   user: {
     getUserByUserId: '/users',

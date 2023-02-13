@@ -4,12 +4,10 @@ module.exports = {
     'react-native-reanimated/plugin',
     '@babel/plugin-proposal-export-namespace-from',
     [
-      'module-resolver',
+      require.resolve('babel-plugin-module-resolver'),
       {
-        root: ['./src'],
-        alias: {
-          '@': './src',
-        },
+        root: ['./'],
+        extensions: ['.ts', '.tsx', '.js'],
       },
     ],
   ],

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Text, SkeletonView } from 'react-native-ui-lib';
+import { View, Text, SkeletonView, Colors } from 'react-native-ui-lib';
 import { postItemStyles } from './styles';
 import { Icon } from './../../../ui/icons';
 import { Touchable } from './../../containers/touchable';
@@ -7,7 +7,7 @@ import { PostItemProps } from './interfaces';
 
 export class PostItem extends PureComponent<PostItemProps> {
   render() {
-    const { title, onPress, showContent } = this.props;
+    const { title, onPress, showContent, isFavorite } = this.props;
     const {
       containerStyle,
       textContainerStyle,
@@ -27,7 +27,9 @@ export class PostItem extends PureComponent<PostItemProps> {
                 <Text subTitle>{title}</Text>
               </View>
               <View style={favoriteIconContainerStyle}>
-                <Icon.Star scale={0.5} />
+                {isFavorite && (
+                  <Icon.Star scale={0.5} color={Colors.yellow30} />
+                )}
               </View>
             </View>
           </Touchable>

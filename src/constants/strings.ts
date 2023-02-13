@@ -19,6 +19,7 @@ const labels = {
   email: 'Email',
   website: 'Website',
   hasBeenAddedToFavorites: 'Has been added to favorites.',
+  hasBeenRemovedFromFavorites: 'Has been removed from favorites.',
 };
 
 export default {

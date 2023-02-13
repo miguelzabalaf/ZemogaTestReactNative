@@ -9,9 +9,10 @@ import { postDetailStyles } from './styles';
 import { ButtonIcon } from './../../../ui/components/buttonIcon';
 import { Icon } from './../../../ui/icons';
 import { useActionsController } from './controllers/actions.controller';
+import { useDataController } from './controllers/data.controller';
 
 export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
-  const { lastScreenName, title, body } = props;
+  const { lastScreenName, postId } = props;
   const { containerMapStyle, mapStyle, containerActionsStyle } =
     postDetailStyles();
   const {
@@ -23,20 +24,26 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
     onPressWebsite,
     onPressFavorite,
     onDismissToast,
-  } = useActionsController();
+  } = useActionsController({ postId });
+  const { post, isFavorite } = useDataController({ postId });
   return (
     <Layout.Page
       showGoBack
       contentWithoutPaddingTop
       lastScreenName={lastScreenName}
-      IconRight={() => Icon.Star({ scale: 0.75, color: Colors.gray })}
+      IconRight={() =>
+        Icon.Star({
+          scale: 0.75,
+          color: isFavorite ? Colors.yellow30 : Colors.gray,
+        })
+      }
       onPressIconRight={onPressFavorite}>
       <Toast
         visible={toastState.visible}
         position={'top'}
         autoDismiss={1500}
         onDismiss={onDismissToast}
-        backgroundColor={Colors.primary}
+        backgroundColor={toastState.color}
         message={toastState.message}
       />
 
@@ -46,10 +53,10 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
           {strings.labels.post}
         </Text>
         <Text title black>
-          {title}
+          {post?.title}
         </Text>
         <View height={Spacings.s3} />
-        <Text text>{body}</Text>
+        <Text text>{post?.body}</Text>
       </Layout.ContentWithPaddingHorizontal>
       <View height={Spacings.s3 * 2} />
       <Separator />
