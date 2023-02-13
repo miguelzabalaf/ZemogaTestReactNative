@@ -7,6 +7,8 @@ export function touchableStyles() {
     },
     contentStyle: {
       flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   });
 }

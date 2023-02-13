@@ -18,10 +18,8 @@ export function topBarStyles(props: TopBarStyleProps) {
       alignItems: 'center',
     },
     containerIconStyle: {
-      width: moderateScale(35),
-      height: moderateScale(35),
-      alignItems: 'center',
-      justifyContent: 'center',
+      width: moderateScale(50),
+      height: moderateScale(50),
     },
   });
 }

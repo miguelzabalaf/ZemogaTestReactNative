@@ -16,5 +16,8 @@ export function presetStyles() {
     title: typography.title,
     subTitle: typography.subTitle,
     textCenter: typography.textCenter,
+    text: typography.text,
+    smallText: typography.smallText,
+    lowercase: typography.lowercase,
   });
 }

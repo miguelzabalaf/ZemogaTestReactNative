@@ -6,7 +6,7 @@ export interface ScreenComponentProps extends ScreenPorps {
 }
 export interface Screen {
   [key: string]: {
-    component: (props: ScreenComponentProps) => JSX.Element;
+    component: (props: any) => JSX.Element;
     name: string;
   };
 }

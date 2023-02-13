@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native-ui-lib';
 import { PostItem } from './postItem';
-import { ItemSeparator } from './itemSeparator';
+import { Separator } from './../separator';
 
 export function ListEmpty(): JSX.Element {
   return (
@@ -9,7 +9,7 @@ export function ListEmpty(): JSX.Element {
       {Array.from({ length: 15 }).map((_, index) => (
         <View key={index}>
           <PostItem showContent={false} onPress={() => {}} />
-          <ItemSeparator />
+          <Separator />
         </View>
       ))}
     </View>

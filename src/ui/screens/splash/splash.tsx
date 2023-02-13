@@ -2,11 +2,11 @@ import React from 'react';
 import { Layout } from './../../containers/layout';
 import { Icon } from './../../icons';
 import { ScreenPorps } from 'src/ui/interfaces/interfaces';
-import { useSplashController } from './controllers/useSplash.controller';
+import { useNavigationController } from './controllers/useNavigation.controller';
 
 export function SplashScreen(props: ScreenPorps): JSX.Element {
   const {} = props;
-  useSplashController();
+  useNavigationController();
   return (
     <Layout.Page withoutScroll hideTopBar center>
       <Icon.ZemogaLogo scale={2} />

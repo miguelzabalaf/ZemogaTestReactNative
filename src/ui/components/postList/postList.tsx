@@ -2,9 +2,10 @@ import React, { useRef, useState, useEffect } from 'react';
 import { FlatList } from 'react-native';
 import { PostEntity } from 'src/domain/entities/post.entity';
 import { PostItem } from './postItem';
-import { ItemSeparator } from './itemSeparator';
+import { Separator } from './../../components/separator';
 import { ListFooter } from './listFooter';
 import { ListEmpty } from './listEmpty';
+import { PostListProps } from 'src/ui/screens/posts/interfaces';
 
 const dataDummy: Array<PostEntity> = [
   {
@@ -441,7 +442,8 @@ const dataDummy: Array<PostEntity> = [
   },
 ];
 
-export function PostList(): JSX.Element {
+export function PostList(props: PostListProps): JSX.Element {
+  const { goToDetailBy } = props;
   const numberToRender = 15;
   const [data, setData] = useState<Array<PostEntity>>([]);
   const [renderAllData, setRenderAllData] = useState(false);
@@ -472,11 +474,11 @@ export function PostList(): JSX.Element {
       updateCellsBatchingPeriod={2000}
       onEndReachedThreshold={0.25}
       onEndReached={onEndReached}
-      renderItem={({ item }) => (
-        <PostItem showContent onPress={() => {}} {...item} />
+      renderItem={({ item: post }) => (
+        <PostItem showContent onPress={() => goToDetailBy(post)} {...post} />
       )}
       keyExtractor={item => Math.random() + item.id.toString()}
-      ItemSeparatorComponent={ItemSeparator}
+      ItemSeparatorComponent={Separator}
       ListFooterComponent={ListFooter({
         renderAllData,
         goToTop,

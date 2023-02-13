@@ -1,9 +1,8 @@
 import React from 'react';
-import { Animated, TouchableHighlight } from 'react-native';
+import { TouchableOpacity, Animated } from 'react-native';
 import { TouchableProps } from './interfaces';
 import { touchableStyles } from './styles';
 import { useReboundAnimation } from './../../../ui/animations/rebound';
-import { Colors } from 'react-native-ui-lib';
 
 export function Touchable(props: TouchableProps) {
   const { children, onPress, onPressIn, onPressOut } = props;
@@ -13,11 +12,10 @@ export function Touchable(props: TouchableProps) {
   return (
     <Animated.View
       style={[{ transform: [{ scale: scaleValue }] }, containerStyle]}>
-      <TouchableHighlight
+      <TouchableOpacity
         {...props}
-        underlayColor={Colors.grayLight}
         style={contentStyle}
-        activeOpacity={0.85}
+        activeOpacity={0.75}
         onPress={event => {
           handleScale();
           onPress && onPress(event);
@@ -31,7 +29,7 @@ export function Touchable(props: TouchableProps) {
           handleScaleOut();
         }}>
         {children}
-      </TouchableHighlight>
+      </TouchableOpacity>
     </Animated.View>
   );
 }

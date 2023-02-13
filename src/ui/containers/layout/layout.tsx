@@ -14,6 +14,8 @@ export function Page(props: PageProps): JSX.Element {
     contentWithoutPaddingTop,
     center,
     hideTopBar,
+    showGoBack,
+    lastScreenName,
   } = props;
   const { containerStyle, contentStyle } = pageStyles({
     contentWithoutPaddingTop,
@@ -25,7 +27,11 @@ export function Page(props: PageProps): JSX.Element {
     <View style={containerStyle}>
       <SafeAreaSpacerView />
       {!hideTopBar && (
-        <TopBar showBorderBottomOfTopBar={showBorderBottomOfTopBar} />
+        <TopBar
+          showBorderBottomOfTopBar={showBorderBottomOfTopBar}
+          showGoBack={showGoBack}
+          lastScreenName={lastScreenName}
+        />
       )}
       {withoutScroll ? (
         <View style={contentStyle}>{children}</View>
