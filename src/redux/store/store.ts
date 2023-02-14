@@ -3,23 +3,25 @@ import autoMergeLevel1 from 'redux-persist/es/stateReconciler/autoMergeLevel1';
 import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
 import { configureStore } from '@reduxjs/toolkit';
 import { PostReducer } from '../reducers/post/interfaces';
+import { UserReducer } from '../reducers/user/interfaces';
 import { initialStates } from '../constants/initialStates';
 import { reducers } from '../reducers';
 
 export interface ReduxStore {
   post: PostReducer;
+  user: UserReducer;
 }
 
 export const storeInitialState = {
   post: initialStates.post,
+  user: initialStates.user,
 };
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
   storage: AsyncStorage,
   stateReconciler: autoMergeLevel1,
-  // blacklist: [],
-  whitelist: ['post'],
+  blacklist: [],
 };
 
 const persistReduce = persistReducer(persistConfig, reducers);

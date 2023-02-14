@@ -20,6 +20,8 @@ const labels = {
   website: 'Website',
   hasBeenAddedToFavorites: 'Has been added to favorites.',
   hasBeenRemovedFromFavorites: 'Has been removed from favorites.',
+  comments: 'Comments',
+  seeAll: 'See all',
 };
 
 export default {

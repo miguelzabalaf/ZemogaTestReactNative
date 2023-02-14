@@ -1,6 +1,13 @@
 import React from 'react';
 import { Layout } from '../../containers/layout';
-import { Text, View, Spacings, Colors, Toast } from 'react-native-ui-lib';
+import {
+  Text,
+  View,
+  Spacings,
+  Colors,
+  Toast,
+  ExpandableSection,
+} from 'react-native-ui-lib';
 import { PostDetailScreenProps } from './interfaces';
 import strings from './../../../constants/strings';
 import { Separator } from './../../../ui/components/separator';
@@ -10,6 +17,9 @@ import { ButtonIcon } from './../../../ui/components/buttonIcon';
 import { Icon } from './../../../ui/icons';
 import { useActionsController } from './controllers/actions.controller';
 import { useDataController } from './controllers/data.controller';
+import { HeaderExpandableSection } from 'src/ui/components/headerExpandableSection';
+import { CommentList } from 'src/ui/components/commentList/commentList';
+import { capitalizeFirstLetter } from 'src/helpers/quickFunctions';
 
 export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
   const { lastScreenName, postId } = props;
@@ -18,14 +28,16 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
   const {
     // States
     toastState,
-    // Actions
+    showComments,
+    // Methods
     onPressEmail,
     onPressPhone,
     onPressWebsite,
     onPressFavorite,
     onDismissToast,
+    onPressComments,
   } = useActionsController({ postId });
-  const { post, isFavorite } = useDataController({ postId });
+  const { post, isFavorite, user } = useDataController({ postId });
   return (
     <Layout.Page
       showGoBack
@@ -53,12 +65,48 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
           {strings.labels.post}
         </Text>
         <Text title black>
-          {post?.title}
+          {capitalizeFirstLetter(post?.title)}
         </Text>
         <View height={Spacings.s3} />
-        <Text text>{post?.body}</Text>
+        <Text text>{capitalizeFirstLetter(post?.body)}</Text>
       </Layout.ContentWithPaddingHorizontal>
-      <View height={Spacings.s3 * 2} />
+      <View height={Spacings.s3} />
+      <ExpandableSection
+        expanded={showComments}
+        onPress={onPressComments}
+        sectionHeader={
+          <HeaderExpandableSection
+            Icon={() => Icon.Comment({ color: Colors.gray, scale: 0.5 })}
+            label={strings.labels.comments}
+          />
+        }>
+        <CommentList
+          comments={[
+            {
+              postId: 1,
+              id: 2,
+              name: 'quo vero reiciendis velit similique earum',
+              email: 'Jayne_Kuhic@sydney.com',
+              body: 'est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et',
+            },
+            {
+              postId: 1,
+              id: 2,
+              name: 'quo vero reiciendis velit similique earum',
+              email: 'Jayne_Kuhic@sydney.com',
+              body: 'est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et',
+            },
+            {
+              postId: 1,
+              id: 2,
+              name: 'quo vero reiciendis velit similique earum',
+              email: 'Jayne_Kuhic@sydney.com',
+              body: 'est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et',
+            },
+          ]}
+        />
+      </ExpandableSection>
+      <View height={Spacings.s3} />
       <Separator />
       <View height={Spacings.s3 * 2} />
       <Layout.ContentWithPaddingHorizontal>
@@ -66,10 +114,10 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
           {strings.labels.author}
         </Text>
         <Text subTitle>
-          Leanne Graham · <Text textMuted>Bret</Text>
+          {user?.name} · <Text textMuted>{user?.username}</Text>
         </Text>
         <Text text lowercase textMuted>
-          Sincere@april.biz
+          {user?.email}
         </Text>
         <View height={Spacings.s3 * 2} />
         <Text textMuted smallText>
@@ -78,16 +126,23 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
         <View height={Spacings.s3} />
       </Layout.ContentWithPaddingHorizontal>
       <View style={containerMapStyle}>
-        <MapView
-          style={mapStyle}
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.05,
-            longitudeDelta: 0.05,
-          }}>
-          <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324 }} />
-        </MapView>
+        {user && (
+          <MapView
+            style={mapStyle}
+            initialRegion={{
+              latitude: parseFloat(user?.address.geo.lat),
+              longitude: parseFloat(user?.address.geo.lng),
+              latitudeDelta: 0.05,
+              longitudeDelta: 0.05,
+            }}>
+            <Marker
+              coordinate={{
+                latitude: Number(user?.address.geo.lat),
+                longitude: Number(user?.address.geo.lng),
+              }}
+            />
+          </MapView>
+        )}
       </View>
       <Layout.ContentWithPaddingHorizontal>
         <View height={Spacings.s3 * 2} />
@@ -99,19 +154,19 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
           <ButtonIcon
             label={strings.labels.email}
             Icon={Icon.Email}
-            onPress={() => onPressEmail('example@me.com')}
+            onPress={() => onPressEmail(user?.email || '')}
             iconColor={Colors.white}
           />
           <ButtonIcon
             label={strings.labels.website}
             Icon={Icon.Website}
-            onPress={() => onPressWebsite('https://github.com/miguelzabalaf')}
+            onPress={() => onPressWebsite(user?.website || '')}
             iconColor={Colors.white}
           />
           <ButtonIcon
             label={strings.labels.call}
             Icon={Icon.Phone}
-            onPress={() => onPressPhone('3157707744')}
+            onPress={() => onPressPhone(user?.phone || '')}
             iconColor={Colors.white}
           />
         </View>

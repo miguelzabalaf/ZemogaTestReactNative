@@ -9,16 +9,31 @@ import { getAllFavoritePostelector } from 'src/redux/selectors/post.selector';
 import { Colors } from 'react-native-ui-lib';
 
 export function useActionsController(props: useActionsControllerProps) {
+  // Props
   const { postId } = props;
-  const { actAddPostIdToFavorites } = postActions();
-  const dispatch = useDispatch();
-  const postFavorites = getAllFavoritePostelector();
-  const isFavorite = postFavorites?.includes(postId);
+
+  // States
+  const [showComments, setShowComments] = useState(false);
   const [toastState, setToastState] = useState({
     visible: false,
     color: Colors.primary,
     message: '',
   });
+
+  // Actions
+  const dispatch = useDispatch();
+  const { actAddPostIdToFavorites } = postActions();
+
+  // Selectors
+  const postFavorites = getAllFavoritePostelector();
+
+  // Constants
+  const isFavorite = postFavorites?.includes(postId);
+
+  // Methods
+  function onPressComments() {
+    setShowComments(!showComments);
+  }
 
   function onPressEmail(email: string) {
     Linking.openURL(`mailto:${email}`);
@@ -55,11 +70,13 @@ export function useActionsController(props: useActionsControllerProps) {
   return {
     // States
     toastState,
-    // Actions
+    showComments,
+    // Methods
     onPressEmail,
     onPressPhone,
     onPressWebsite,
     onPressFavorite,
     onDismissToast,
+    onPressComments,
   };
 }

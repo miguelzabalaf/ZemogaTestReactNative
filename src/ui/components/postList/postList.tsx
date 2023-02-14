@@ -18,7 +18,7 @@ export function PostList(props: PostListProps): JSX.Element {
   }
 
   function goToTop() {
-    postListRef.current?.scrollToIndex({ index: 0, animated: true });
+    postListRef.current?.scrollToOffset({ offset: 0, animated: true });
   }
 
   return (

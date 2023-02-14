@@ -3,4 +3,7 @@ export const types = {
     addAllPosts: 'ADD_ALL_POSTS',
     addPostIdToFavorites: 'ADD_POST_ID_TO_FAVORITES',
   },
+  user: {
+    addUser: 'ADD_USER',
+  },
 };

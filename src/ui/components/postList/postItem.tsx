@@ -4,6 +4,7 @@ import { postItemStyles } from './styles';
 import { Icon } from './../../../ui/icons';
 import { Touchable } from './../../containers/touchable';
 import { PostItemProps } from './interfaces';
+import { capitalizeFirstLetter } from 'src/helpers/quickFunctions';
 
 export class PostItem extends PureComponent<PostItemProps> {
   render() {
@@ -24,7 +25,7 @@ export class PostItem extends PureComponent<PostItemProps> {
           <Touchable onPress={onPress}>
             <View style={containerStyle}>
               <View style={textContainerStyle}>
-                <Text subTitle>{title}</Text>
+                <Text subTitle>{capitalizeFirstLetter(title)}</Text>
               </View>
               <View style={favoriteIconContainerStyle}>
                 {isFavorite && (
