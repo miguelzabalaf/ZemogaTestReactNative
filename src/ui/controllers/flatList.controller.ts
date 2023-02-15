@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { FlatListControllerProps } from './interfaces';
-import { FlatList } from 'react-native/types';
+import { FlatList } from 'react-native/';
 
 export function useFlatlistController<T>(props: FlatListControllerProps<T>) {
   // Props
@@ -11,7 +11,7 @@ export function useFlatlistController<T>(props: FlatListControllerProps<T>) {
   const maxToRenderPerBatch = usualyHasMoreThan15Items ? 15 : undefined;
   const updateCellsBatchingPeriod = usualyHasMoreThan15Items ? 2000 : undefined;
   const onEndReachedThreshold = usualyHasMoreThan15Items ? 0.25 : undefined;
-
+  const showGotoTopButton = usualyHasMoreThan15Items ? true : false;
   // States
   const [allDataRendered, setAllDataRendered] = useState(false);
   const flatListRef = useRef<FlatList<T>>(null);
@@ -32,9 +32,10 @@ export function useFlatlistController<T>(props: FlatListControllerProps<T>) {
     updateCellsBatchingPeriod,
     onEndReachedThreshold,
     // States
+    data,
     flatListRef,
     allDataRendered,
-    data,
+    showGotoTopButton,
     // Methods
     goToTop,
     onEndReached,

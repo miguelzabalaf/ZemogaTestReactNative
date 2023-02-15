@@ -6,7 +6,10 @@ import { useNavigationController } from './controllers/navigation.controller';
 import { useDataController } from './controllers/data.controller';
 
 export function PostsScreen(props: ScreenProps): JSX.Element {
+  // Props
   const { componentId, lastScreenName } = props;
+
+  // Controllers
   const { goToDetailBy } = useNavigationController({ componentId });
   const { posts } = useDataController();
 

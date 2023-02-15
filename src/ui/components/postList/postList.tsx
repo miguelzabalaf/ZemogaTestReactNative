@@ -14,6 +14,7 @@ export function PostList(props: PostListProps): JSX.Element {
     // Constants
     initialNumToRender,
     maxToRenderPerBatch,
+    showGotoTopButton,
     // States
     data,
     allDataRendered,
@@ -43,6 +44,7 @@ export function PostList(props: PostListProps): JSX.Element {
       ListFooterComponent={ListFooter({
         allDataRendered,
         goToTop,
+        showGotoTopButton,
       })}
       ListEmptyComponent={ListEmpty}
     />

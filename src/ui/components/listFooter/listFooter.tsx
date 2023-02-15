@@ -8,7 +8,7 @@ import { Icon } from '../../icons';
 import strings from '../../../constants/strings';
 
 export function ListFooter(props: ListFooterProps): JSX.Element {
-  const { allDataRendered, goToTop } = props;
+  const { allDataRendered, goToTop, showGotoTopButton } = props;
   const { containerStyle, buttonArrowUpStyle } = listFooterStyles();
   return (
     <View style={containerStyle}>
@@ -18,11 +18,13 @@ export function ListFooter(props: ListFooterProps): JSX.Element {
             {strings.labels.endOfList}
           </Text>
           <View height={Spacings.s3} />
-          <Touchable onPress={goToTop}>
-            <View style={buttonArrowUpStyle}>
-              <Icon.ArrowUp color={Colors.primary} />
-            </View>
-          </Touchable>
+          {showGotoTopButton && (
+            <Touchable onPress={goToTop}>
+              <View style={buttonArrowUpStyle}>
+                <Icon.ArrowUp color={Colors.primary} />
+              </View>
+            </Touchable>
+          )}
         </View>
       ) : (
         <ActivityIndicator size={35} color={Colors.primary} />

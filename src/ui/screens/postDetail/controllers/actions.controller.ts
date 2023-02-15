@@ -9,6 +9,7 @@ import { getAllFavoritePostelector } from 'src/redux/selectors/post.selector';
 import { Colors } from 'react-native-ui-lib';
 import { navigateTo } from 'src/navigation/helpers/navigation';
 import { CommentEntity } from 'src/domain/entities/comment.entity';
+import { formatNumber } from 'src/helpers/quickFunctions';
 
 export function useActionsController(props: UseActionsControllerProps) {
   // Props
@@ -47,16 +48,16 @@ export function useActionsController(props: UseActionsControllerProps) {
     });
   }
 
-  function onPressEmail(email: string) {
-    Linking.openURL(`mailto:${email}`);
+  async function onPressEmail(email: string) {
+    await Linking.openURL(`mailto:${email.toLowerCase()}`);
   }
 
-  function onPressPhone(phone: string) {
-    Linking.openURL(`tel:${phone}`);
+  async function onPressPhone(phone: string) {
+    await Linking.openURL(`tel:${formatNumber(phone)}`);
   }
 
-  function onPressWebsite(website: string) {
-    Linking.openURL(website);
+  async function onPressWebsite(website: string) {
+    await Linking.openURL(`https://${website}`);
   }
 
   function onPressFavorite() {
@@ -79,6 +80,15 @@ export function useActionsController(props: UseActionsControllerProps) {
     });
   }
 
+  function getInitialRegion(lat: number, lng: number) {
+    return {
+      latitude: lat,
+      longitude: lng,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    };
+  }
+
   return {
     // States
     toastState,
@@ -91,5 +101,6 @@ export function useActionsController(props: UseActionsControllerProps) {
     onDismissToast,
     onPressComments,
     onPressSeeAll,
+    getInitialRegion,
   };
 }

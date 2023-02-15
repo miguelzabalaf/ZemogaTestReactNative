@@ -23,6 +23,8 @@ export function useDataController(props: UseDataControllerProps) {
   // States
   const [loadingUserInfo, setLoadingUserInfo] = useState(false);
   const [loadingComments, setloadingComments] = useState(false);
+  const [errorToLoadUserInfo, setErrorToLoadUserInfo] = useState(false);
+  const [errorToLoadComments, setErrorToLoadComments] = useState(false);
 
   // Use cases
   const { getUserBy } = userUseCase(userImplementation());
@@ -52,8 +54,13 @@ export function useDataController(props: UseDataControllerProps) {
         const payload = await getUserBy(post.userId);
         dispatch<AddUserDispatchAction>(actAddUser(payload));
         setLoadingUserInfo(false);
+        setErrorToLoadUserInfo(false);
       }
-
+    } catch (error) {
+      console.log('error [getUserBy]', error);
+      setErrorToLoadUserInfo(true);
+    }
+    try {
       if (isNecessaryGetComments) {
         setloadingComments(true);
         const commentsResp = await getCommentsBy(postId);
@@ -64,9 +71,11 @@ export function useDataController(props: UseDataControllerProps) {
           }),
         );
         setloadingComments(false);
+        setErrorToLoadComments(false);
       }
     } catch (error) {
-      console.log('error', error);
+      console.log('error [getCommentsBy]', error);
+      setErrorToLoadComments(true);
     }
   }
 
@@ -82,5 +91,7 @@ export function useDataController(props: UseDataControllerProps) {
     comments,
     loadingUserInfo,
     loadingComments,
+    errorToLoadUserInfo,
+    errorToLoadComments,
   };
 }

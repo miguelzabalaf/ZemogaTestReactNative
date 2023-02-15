@@ -25,6 +25,7 @@ export const useInterceptor = (_: EnhancedStore<ReduxStore>) => {
   }
 
   function handleResponseSuccess(response: AxiosResponse): AxiosResponse {
+    response.config.timeout = 3000;
     return response;
   }
 

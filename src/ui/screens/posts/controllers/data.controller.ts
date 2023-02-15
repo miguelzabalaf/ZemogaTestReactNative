@@ -11,12 +11,18 @@ import { postActions } from 'src/redux/actions/post.actions';
 import _ from 'lodash';
 
 export function useDataController() {
+  // Use cases
   const { getAllPost } = postUseCase(postImplementation());
-  const posts = getAllPostelector();
-  const postFavorites = getAllFavoritePostelector();
+
+  // Actions
   const { actAddAllPosts } = postActions();
   const dispatch = useDispatch();
 
+  // Selectors
+  const posts = getAllPostelector();
+  const postFavorites = getAllFavoritePostelector();
+
+  // Methods
   async function onGetAllPost() {
     try {
       const postsResp = await getAllPost();
@@ -26,6 +32,7 @@ export function useDataController() {
     }
   }
 
+  // Constants
   const postsMutated = _.map(posts, post => {
     return {
       ...post,
@@ -35,6 +42,7 @@ export function useDataController() {
     return a.isFavoritePost ? -1 : 1;
   });
 
+  // Hooks
   useEffect(() => {
     onGetAllPost();
   }, []);

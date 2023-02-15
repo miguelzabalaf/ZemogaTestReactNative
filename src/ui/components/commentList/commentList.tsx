@@ -12,6 +12,7 @@ export function CommentList(props: CommentListProps): JSX.Element {
     // Constants
     initialNumToRender,
     maxToRenderPerBatch,
+    showGotoTopButton,
     // States
     data,
     allDataRendered,
@@ -37,6 +38,7 @@ export function CommentList(props: CommentListProps): JSX.Element {
       ListFooterComponent={ListFooter({
         allDataRendered,
         goToTop,
+        showGotoTopButton,
       })}
     />
   );
