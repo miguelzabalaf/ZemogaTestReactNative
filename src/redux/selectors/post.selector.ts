@@ -26,3 +26,17 @@ export function getAllPostelector() {
   );
   return useSelector(selector);
 }
+
+export function getCommentsByPostIdSelector(postId: PostEntity['id']) {
+  const selector = createSelector(
+    (state: ReduxStore) => state.post,
+    post => {
+      if (post.commentsByPostId?.hasOwnProperty(postId)) {
+        return post.commentsByPostId[postId];
+      } else {
+        return [];
+      }
+    },
+  );
+  return useSelector(selector);
+}

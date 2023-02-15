@@ -8,7 +8,7 @@ import { capitalizeFirstLetter } from 'src/helpers/quickFunctions';
 
 export class PostItem extends PureComponent<PostItemProps> {
   render() {
-    const { title, onPress, showContent, isFavorite } = this.props;
+    const { title, onPress, showContent, isFavoritePost } = this.props;
     const {
       containerStyle,
       textContainerStyle,
@@ -28,7 +28,7 @@ export class PostItem extends PureComponent<PostItemProps> {
                 <Text subTitle>{capitalizeFirstLetter(title)}</Text>
               </View>
               <View style={favoriteIconContainerStyle}>
-                {isFavorite && (
+                {isFavoritePost && (
                   <Icon.Star scale={0.5} color={Colors.yellow30} />
                 )}
               </View>

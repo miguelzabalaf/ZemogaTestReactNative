@@ -1,24 +1,43 @@
 import React from 'react';
 import { CommentListProps } from './interfaces';
 import { CommentItem } from './commentItem';
-import _ from 'lodash';
-import { Spacings, Text, View } from 'react-native-ui-lib';
-import { Touchable } from 'src/ui/containers/touchable';
-import strings from 'src/constants/strings';
-import { commentListStyles } from 'src/ui/components/commentList/styles/styles';
+import { CommentEntity } from '../../../domain/entities/comment.entity';
+import { useFlatlistController } from './../../controllers/flatList.controller';
+import { ListFooter } from '../listFooter';
+import { FlatList } from 'react-native';
 
 export function CommentList(props: CommentListProps): JSX.Element {
   const { comments } = props;
-  const { seeAlButtonStyle } = commentListStyles();
+  const {
+    // Constants
+    initialNumToRender,
+    maxToRenderPerBatch,
+    // States
+    data,
+    allDataRendered,
+    flatListRef,
+    // Methods
+    onEndReached,
+    goToTop,
+  } = useFlatlistController<CommentEntity>({
+    data: comments,
+    usualyHasMoreThan15Items: false,
+  });
   return (
-    <View>
-      <View height={Spacings.s3} />
-      {_.map(comments, (comment, index) => {
-        return <CommentItem {...comment} key={index} />;
+    <FlatList
+      ref={flatListRef}
+      data={data}
+      initialNumToRender={initialNumToRender}
+      maxToRenderPerBatch={maxToRenderPerBatch}
+      updateCellsBatchingPeriod={2000}
+      onEndReachedThreshold={0.25}
+      onEndReached={onEndReached}
+      renderItem={({ item: comment }) => <CommentItem {...comment} />}
+      keyExtractor={item => item.id.toString()}
+      ListFooterComponent={ListFooter({
+        allDataRendered,
+        goToTop,
       })}
-      <Touchable style={seeAlButtonStyle}>
-        <Text primary>{strings.labels.seeAll}</Text>
-      </Touchable>
-    </View>
+    />
   );
 }

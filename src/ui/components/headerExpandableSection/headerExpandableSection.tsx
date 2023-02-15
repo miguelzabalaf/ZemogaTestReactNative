@@ -1,17 +1,22 @@
 import React from 'react';
-import { Text, View } from 'react-native-ui-lib';
+import { Colors, Text, View } from 'react-native-ui-lib';
 import { HeaderExpandableSectionProps } from './interfaces';
 import { headerExpandableSectionStyles } from './styles';
+import { ActivityIndicator } from 'react-native';
 
 export function HeaderExpandableSection(props: HeaderExpandableSectionProps) {
-  const { Icon, label } = props;
+  const { Icon, label, loading } = props;
   const { containerStyle, containerIconStyle, labelStyle } =
     headerExpandableSectionStyles();
   return (
     <View style={containerStyle}>
       <Text style={labelStyle}>{label}</Text>
       <View style={containerIconStyle}>
-        <Icon />
+        {loading ? (
+          <ActivityIndicator size={15} color={Colors.gray} />
+        ) : (
+          <Icon />
+        )}
       </View>
     </View>
   );

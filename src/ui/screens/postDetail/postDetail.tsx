@@ -13,18 +13,25 @@ import strings from './../../../constants/strings';
 import { Separator } from './../../../ui/components/separator';
 import MapView, { Marker } from 'react-native-maps';
 import { postDetailStyles } from './styles';
-import { ButtonIcon } from './../../../ui/components/buttonIcon';
 import { Icon } from './../../../ui/icons';
 import { useActionsController } from './controllers/actions.controller';
 import { useDataController } from './controllers/data.controller';
 import { HeaderExpandableSection } from 'src/ui/components/headerExpandableSection';
-import { CommentList } from 'src/ui/components/commentList/commentList';
 import { capitalizeFirstLetter } from 'src/helpers/quickFunctions';
+import { PostDetailActions } from 'src/ui/screens/postDetail/postDetailActions';
+import { CommentListPreview } from 'src/ui/components/commentList/commentListPreview';
 
 export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
-  const { lastScreenName, postId } = props;
-  const { containerMapStyle, mapStyle, containerActionsStyle } =
-    postDetailStyles();
+  const { lastScreenName, postId, componentId } = props;
+  const { containerMapStyle, mapStyle } = postDetailStyles();
+  const {
+    post,
+    isFavoritePost,
+    user,
+    comments,
+    loadingComments,
+    loadingUserInfo,
+  } = useDataController({ postId });
   const {
     // States
     toastState,
@@ -36,8 +43,8 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
     onPressFavorite,
     onDismissToast,
     onPressComments,
-  } = useActionsController({ postId });
-  const { post, isFavorite, user } = useDataController({ postId });
+    onPressSeeAll,
+  } = useActionsController({ postId, loadingComments, componentId });
   return (
     <Layout.Page
       showGoBack
@@ -46,7 +53,7 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
       IconRight={() =>
         Icon.Star({
           scale: 0.75,
-          color: isFavorite ? Colors.yellow30 : Colors.gray,
+          color: isFavoritePost ? Colors.yellow30 : Colors.gray,
         })
       }
       onPressIconRight={onPressFavorite}>
@@ -76,34 +83,14 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
         onPress={onPressComments}
         sectionHeader={
           <HeaderExpandableSection
+            loading={loadingComments}
             Icon={() => Icon.Comment({ color: Colors.gray, scale: 0.5 })}
             label={strings.labels.comments}
           />
         }>
-        <CommentList
-          comments={[
-            {
-              postId: 1,
-              id: 2,
-              name: 'quo vero reiciendis velit similique earum',
-              email: 'Jayne_Kuhic@sydney.com',
-              body: 'est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et',
-            },
-            {
-              postId: 1,
-              id: 2,
-              name: 'quo vero reiciendis velit similique earum',
-              email: 'Jayne_Kuhic@sydney.com',
-              body: 'est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et',
-            },
-            {
-              postId: 1,
-              id: 2,
-              name: 'quo vero reiciendis velit similique earum',
-              email: 'Jayne_Kuhic@sydney.com',
-              body: 'est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et',
-            },
-          ]}
+        <CommentListPreview
+          comments={comments.slice(0, 2)}
+          onPressSeeAll={() => onPressSeeAll(comments)}
         />
       </ExpandableSection>
       <View height={Spacings.s3} />
@@ -144,33 +131,14 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
           </MapView>
         )}
       </View>
-      <Layout.ContentWithPaddingHorizontal>
-        <View height={Spacings.s3 * 2} />
-        <Text textMuted smallText>
-          {strings.labels.actions}
-        </Text>
-        <View height={Spacings.s3} />
-        <View style={containerActionsStyle}>
-          <ButtonIcon
-            label={strings.labels.email}
-            Icon={Icon.Email}
-            onPress={() => onPressEmail(user?.email || '')}
-            iconColor={Colors.white}
-          />
-          <ButtonIcon
-            label={strings.labels.website}
-            Icon={Icon.Website}
-            onPress={() => onPressWebsite(user?.website || '')}
-            iconColor={Colors.white}
-          />
-          <ButtonIcon
-            label={strings.labels.call}
-            Icon={Icon.Phone}
-            onPress={() => onPressPhone(user?.phone || '')}
-            iconColor={Colors.white}
-          />
-        </View>
-      </Layout.ContentWithPaddingHorizontal>
+      <View height={Spacings.s3 * 2} />
+      <PostDetailActions
+        user={user}
+        loading={loadingUserInfo}
+        onPressEmail={() => onPressEmail(user?.email || '')}
+        onPressPhone={() => onPressPhone(user?.phone || '')}
+        onPressWebsite={() => onPressWebsite(user?.website || '')}
+      />
     </Layout.Page>
   );
 }

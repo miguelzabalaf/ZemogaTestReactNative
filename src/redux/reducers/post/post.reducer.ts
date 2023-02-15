@@ -3,10 +3,12 @@ import { createReducer } from '../../helpers/createReducer';
 import { PostReducer } from './interfaces/interfaces';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { PostEntity } from 'src/domain/entities/post.entity';
+import { CommentEntity } from 'src/domain/entities/comment.entity';
 
 export const postReducerInitialState: PostReducer = {
   posts: [],
   favoritePosts: [],
+  commentsByPostId: {},
 };
 
 const postReducerHandler = {
@@ -39,6 +41,20 @@ const postReducerHandler = {
         favoritePosts: [action.payload, ...state.favoritePosts],
       };
     }
+  },
+  [types.posts.addComments]: (
+    state: PostReducer,
+    action: PayloadAction<{ postId: number; comments: Array<CommentEntity> }>,
+  ) => {
+    const { postId, comments } = action.payload;
+    const commentsByPostId = {
+      ...state.commentsByPostId,
+      [postId]: comments,
+    };
+    return {
+      ...state,
+      commentsByPostId,
+    };
   },
 };
 

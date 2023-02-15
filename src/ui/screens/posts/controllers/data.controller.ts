@@ -29,10 +29,10 @@ export function useDataController() {
   const postsMutated = _.map(posts, post => {
     return {
       ...post,
-      isFavorite: postFavorites?.includes(post.id),
+      isFavoritePost: postFavorites?.includes(post.id),
     };
   }).sort(a => {
-    return a.isFavorite ? -1 : 1;
+    return a.isFavoritePost ? -1 : 1;
   });
 
   useEffect(() => {

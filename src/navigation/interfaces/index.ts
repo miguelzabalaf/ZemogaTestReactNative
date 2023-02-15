@@ -1,7 +1,7 @@
 import { Options } from 'react-native-navigation';
-import { ScreenPorps } from 'src/ui/interfaces';
+import { ScreenProps } from 'src/ui/interfaces';
 
-export interface ScreenComponentProps extends ScreenPorps {
+export interface ScreenComponentProps extends ScreenProps {
   [x: string]: unknown;
 }
 export interface Screen {

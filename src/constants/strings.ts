@@ -2,6 +2,7 @@ const screens = {
   splash: 'SPLASH_SCREEN',
   posts: 'POSTS_SCREEN',
   postDetail: 'POST_DETAIL_SCREEN',
+  comments: 'COMMENTS_SCREEN',
 };
 
 const stacks = {

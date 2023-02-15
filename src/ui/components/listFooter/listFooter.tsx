@@ -3,16 +3,16 @@ import { View, Colors, Text, Spacings } from 'react-native-ui-lib';
 import { ListFooterProps } from './interfaces';
 import { ActivityIndicator } from 'react-native';
 import { listFooterStyles } from './styles';
-import { Touchable } from './../../containers/touchable';
-import { Icon } from './../../icons';
-import strings from './../../../constants/strings';
+import { Touchable } from '../../containers/touchable';
+import { Icon } from '../../icons';
+import strings from '../../../constants/strings';
 
 export function ListFooter(props: ListFooterProps): JSX.Element {
-  const { renderAllData, goToTop } = props;
+  const { allDataRendered, goToTop } = props;
   const { containerStyle, buttonArrowUpStyle } = listFooterStyles();
   return (
     <View style={containerStyle}>
-      {renderAllData ? (
+      {allDataRendered ? (
         <View>
           <Text textMuted textCenter>
             {strings.labels.endOfList}

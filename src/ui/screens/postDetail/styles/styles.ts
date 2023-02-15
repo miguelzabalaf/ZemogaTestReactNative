@@ -17,3 +17,12 @@ export function postDetailStyles() {
     },
   });
 }
+
+export function postDetailActionsStyles() {
+  return ScaledSheet.create({
+    containerStyle: {
+      flexDirection: 'row',
+      gap: Spacings.s3,
+    },
+  });
+}
