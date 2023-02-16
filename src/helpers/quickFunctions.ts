@@ -10,7 +10,7 @@ export function capitalizeFirstLetter(str: string = '') {
 
 // Thx StackOverflow :)
 export function formatNumber(texto: string) {
-  const numerosEncontrados = texto.match(/\d+/g); // Usamos una expresión regular global para encontrar todos los números en el texto
+  const numerosEncontrados = texto.match(/\d+/g);
   if (numerosEncontrados) {
     return numerosEncontrados.join('');
   } else {
