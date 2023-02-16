@@ -1,10 +1,15 @@
 import React from 'react';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, {
+  Marker,
+  PROVIDER_GOOGLE,
+  PROVIDER_DEFAULT,
+} from 'react-native-maps';
 import { postDetailStyles } from './styles';
 import { PostMapProps } from './interfaces';
 import { Spacings, Text, View } from 'react-native-ui-lib';
 import { Layout } from 'src/ui/containers/layout';
 import strings from 'src/constants/strings';
+import { isIOS } from 'src/helpers/quickFunctions';
 
 export function PostMap(props: PostMapProps) {
   // Props
@@ -27,6 +32,7 @@ export function PostMap(props: PostMapProps) {
         <View style={containerMapStyle}>
           {!loading && address && (
             <MapView
+              provider={isIOS() ? PROVIDER_DEFAULT : PROVIDER_GOOGLE}
               style={mapStyle}
               initialRegion={getInitialRegion(
                 parseFloat(address?.geo?.lat || '0'),

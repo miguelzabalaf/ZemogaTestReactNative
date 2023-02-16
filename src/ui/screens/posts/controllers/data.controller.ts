@@ -10,7 +10,6 @@ import { AddAllPostDispatchAction } from 'src/redux/reducers/post/interfaces/int
 import { postActions } from 'src/redux/actions/post.actions';
 import _ from 'lodash';
 import { OnGetAllPostsProps } from '../interfaces';
-import { LayoutAnimation } from 'react-native';
 
 export function useDataController() {
   // Use cases
@@ -54,12 +53,6 @@ export function useDataController() {
   }
 
   function onToggleEditMode() {
-    LayoutAnimation.configureNext({
-      duration: 250,
-      create: { type: 'easeInEaseOut', property: 'opacity' },
-      update: { type: 'spring', springDamping: 0.4 },
-      delete: { type: 'easeInEaseOut', property: 'opacity' },
-    });
     setEditMode(!editMode);
   }
 

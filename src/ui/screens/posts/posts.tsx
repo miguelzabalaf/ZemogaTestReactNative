@@ -8,14 +8,6 @@ import { Icon } from 'src/ui/icons';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { postStyles } from './styles';
 import { Touchable } from 'src/ui/containers/touchable';
-import { Platform, UIManager } from 'react-native';
-
-if (
-  Platform.OS === 'android' &&
-  UIManager.setLayoutAnimationEnabledExperimental
-) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
 
 export function PostsScreen(props: ScreenProps): JSX.Element {
   // Props
