@@ -5,6 +5,7 @@ import { CommentEntity } from '../../../domain/entities/comment.entity';
 import { useFlatlistController } from './../../controllers/flatList.controller';
 import { ListFooter } from '../listFooter';
 import { FlatList } from 'react-native';
+import { Spacings, View } from 'react-native-ui-lib';
 
 export function CommentList(props: CommentListProps): JSX.Element {
   const { comments } = props;
@@ -35,6 +36,7 @@ export function CommentList(props: CommentListProps): JSX.Element {
       onEndReached={onEndReached}
       renderItem={({ item: comment }) => <CommentItem {...comment} />}
       keyExtractor={item => item.id.toString()}
+      ListHeaderComponent={<View height={Spacings.s3} />}
       ListFooterComponent={ListFooter({
         allDataRendered,
         goToTop,

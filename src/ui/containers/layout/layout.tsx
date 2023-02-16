@@ -4,8 +4,16 @@ import { ContainerProps } from './../../interfaces';
 import { contentWithPaddingHorizontalStyles, pageStyles } from './styles';
 import { PageProps } from './interfaces';
 import { TopBar } from './../../components/topBar';
-import { SafeAreaSpacerView, Spacings, View } from 'react-native-ui-lib';
+import {
+  SafeAreaSpacerView,
+  Spacings,
+  Text,
+  View,
+  Colors,
+} from 'react-native-ui-lib';
 import { usePageController } from '../controllers/usePage.controller';
+import strings from 'src/constants/strings';
+import { Icon } from 'src/ui/icons';
 
 export function Page(props: PageProps): JSX.Element {
   const {
@@ -19,11 +27,11 @@ export function Page(props: PageProps): JSX.Element {
     IconRight,
     onPressIconRight,
   } = props;
-  const { containerStyle, contentStyle } = pageStyles({
+  const { containerStyle, contentStyle, connectionStyle } = pageStyles({
     contentWithoutPaddingTop,
     center,
   });
-  const { handleOnScrollContent, showBorderBottomOfTopBar } =
+  const { handleOnScrollContent, showBorderBottomOfTopBar, isUserConnected } =
     usePageController();
   return (
     <View style={containerStyle}>
@@ -36,6 +44,15 @@ export function Page(props: PageProps): JSX.Element {
           IconRight={IconRight}
           onPressIconRight={onPressIconRight}
         />
+      )}
+      {!hideTopBar && !isUserConnected && (
+        <View style={connectionStyle}>
+          <Text small textMuted>
+            {strings.labels.rigthNowYouAreInOfflineMode}
+          </Text>
+          <View width={Spacings.s2} />
+          <Icon.WiffiOff scale={0.5} color={Colors.textMuted} />
+        </View>
       )}
       {withoutScroll ? (
         <View style={contentStyle}>{children}</View>

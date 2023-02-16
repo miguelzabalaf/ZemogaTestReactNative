@@ -33,6 +33,7 @@ const labels = {
   delete: 'Delete',
   deleteAllPosts: 'Delete all posts',
   areYouSureToDeleteAllPosts: 'Are you sure to delete all posts?',
+  rigthNowYouAreInOfflineMode: 'Rigth now you are in offline mode.',
 };
 
 export default {
