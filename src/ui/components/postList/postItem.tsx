@@ -10,11 +10,17 @@ import { SkeletonSize } from 'src/ui/components/skeleton/interfaces/interfaces';
 
 export class PostItem extends PureComponent<PostItemProps> {
   render() {
-    const { title, onPress, isFavoritePost, loading } = this.props;
+    const { title, onPress, isFavoritePost, loading, editMode } = this.props;
     const { containerStyle, textContainerStyle, favoriteIconContainerStyle } =
-      postItemStyles();
+      postItemStyles({ isFavoritePost, editMode });
     return (
-      <Touchable onPress={onPress}>
+      <Touchable
+        onPress={() => {
+          if (editMode && isFavoritePost) {
+            return;
+          }
+          onPress();
+        }}>
         <View style={containerStyle}>
           <View style={textContainerStyle}>
             {loading ? (
@@ -30,6 +36,9 @@ export class PostItem extends PureComponent<PostItemProps> {
             )}
           </View>
           <View style={favoriteIconContainerStyle}>
+            {editMode && !isFavoritePost && (
+              <Icon.Trash scale={0.5} color={Colors.red30} />
+            )}
             {loading && (
               <Sekeleton.Text size={SkeletonSize.Medium} width={17} />
             )}

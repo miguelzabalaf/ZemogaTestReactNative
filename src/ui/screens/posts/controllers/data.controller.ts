@@ -10,6 +10,7 @@ import { AddAllPostDispatchAction } from 'src/redux/reducers/post/interfaces/int
 import { postActions } from 'src/redux/actions/post.actions';
 import _ from 'lodash';
 import { OnGetAllPostsProps } from '../interfaces';
+import { LayoutAnimation } from 'react-native';
 
 export function useDataController() {
   // Use cases
@@ -18,6 +19,7 @@ export function useDataController() {
   // States
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [errorToLoadPosts, setErrorToLoadPosts] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   // Actions
   const { actAddAllPosts } = postActions();
@@ -37,6 +39,7 @@ export function useDataController() {
       if (force || isNecessaryGetPosts) {
         const postsResp = await getAllPost();
         setLoadingPosts(false);
+        setErrorToLoadPosts(false);
         dispatch<AddAllPostDispatchAction>(actAddAllPosts(postsResp));
       }
     } catch (error) {
@@ -50,6 +53,16 @@ export function useDataController() {
     onGetAllPost({ force: true });
   }
 
+  function onToggleEditMode() {
+    LayoutAnimation.configureNext({
+      duration: 250,
+      create: { type: 'easeInEaseOut', property: 'opacity' },
+      update: { type: 'spring', springDamping: 0.4 },
+      delete: { type: 'easeInEaseOut', property: 'opacity' },
+    });
+    setEditMode(!editMode);
+  }
+
   // Constants
   const postsMutated = _.map(posts, post => {
     return {
@@ -60,18 +73,30 @@ export function useDataController() {
     return a.isFavoritePost ? -1 : 1;
   });
 
+  const havePostsToDelete = _.some(postsMutated, post => !post.isFavoritePost);
+
   // Hooks
   useEffect(() => {
     onGetAllPost({ force: false });
   }, []);
 
+  useEffect(() => {
+    if (!havePostsToDelete) {
+      setEditMode(false);
+    }
+  }, [havePostsToDelete]);
+
   return {
     // States
     loadingPosts,
     errorToLoadPosts,
+    editMode,
     // Data
     posts: postsMutated,
     // Methods
     onTryAgainGetPosts,
+    onToggleEditMode,
+    // Conditions
+    havePostsToDelete,
   };
 }

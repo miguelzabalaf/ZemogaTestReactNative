@@ -24,3 +24,12 @@ export interface actAddCommentsByPostIdDispatchAction {
     comments: Array<CommentEntity>;
   };
 }
+
+export interface actRemovePostByDispatchAction {
+  type: string;
+  payload: PostEntity['id'];
+}
+
+export interface actRemoveAllPostsDispatchAction {
+  type: string;
+}

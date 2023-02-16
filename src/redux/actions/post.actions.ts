@@ -27,9 +27,24 @@ export function postActions() {
     };
   }
 
+  function actRemovePostBy(payload: PostEntity['id']) {
+    return {
+      type: types.posts.removePost,
+      payload,
+    };
+  }
+
+  function actRemoveAllPosts() {
+    return {
+      type: types.posts.removeAllPosts,
+    };
+  }
+
   return {
     actAddAllPosts,
     actAddPostIdToFavorites,
     actAddCommentsByPostId,
+    actRemovePostBy,
+    actRemoveAllPosts,
   };
 }

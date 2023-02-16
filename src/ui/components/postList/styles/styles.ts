@@ -1,9 +1,21 @@
 import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 import { Colors, Spacings } from 'react-native-ui-lib';
+import { PostItemStylesProps } from '../interfaces';
 
-export function postItemStyles() {
+export function postItemStyles(props: PostItemStylesProps) {
+  const { isFavoritePost, editMode } = props;
+  function getOpacity() {
+    if (editMode) {
+      if (isFavoritePost) {
+        return 0.25;
+      }
+      return 1;
+    }
+    return 1;
+  }
   return ScaledSheet.create({
     containerStyle: {
+      opacity: getOpacity(),
       paddingVertical: Spacings.s3,
       paddingHorizontal: Spacings.s3,
       flexDirection: 'row',

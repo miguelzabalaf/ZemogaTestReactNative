@@ -5,7 +5,7 @@ export interface TopBarProps {
   lastScreenName?: PageProps['lastScreenName'];
   showGoBack?: PageProps['showGoBack'];
   showBorderBottomOfTopBar?: boolean;
-  IconRight?: React.FC<SvgProps>;
+  IconRight?: React.FC<SvgProps> | null;
   onPressIconRight?: () => void;
 }
 

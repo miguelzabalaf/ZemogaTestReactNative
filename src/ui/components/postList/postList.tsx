@@ -10,7 +10,7 @@ import { useFlatlistController } from 'src/ui/controllers/flatList.controller';
 import { Colors } from 'react-native-ui-lib';
 
 export function PostList(props: PostListProps): JSX.Element {
-  const { posts, goToDetailBy, loading, hasError, onTryAgain } = props;
+  const { posts, onPressPost, loading, hasError, onTryAgain, editMode } = props;
   const {
     // Constants
     initialNumToRender,
@@ -48,15 +48,23 @@ export function PostList(props: PostListProps): JSX.Element {
       onEndReachedThreshold={0.25}
       onEndReached={onEndReached}
       renderItem={({ item: post }) => (
-        <PostItem onPress={() => goToDetailBy(post.id)} {...post} />
+        <PostItem
+          onPress={() => onPressPost(post.id)}
+          editMode={editMode}
+          {...post}
+        />
       )}
       keyExtractor={item => item.id.toString()}
       ItemSeparatorComponent={Separator}
-      ListFooterComponent={ListFooter({
-        allDataRendered,
-        goToTop,
-        showGotoTopButton,
-      })}
+      ListFooterComponent={
+        data.length > (initialNumToRender ?? 0)
+          ? ListFooter({
+              allDataRendered,
+              goToTop,
+              showGotoTopButton,
+            })
+          : null
+      }
       ListEmptyComponent={ListEmpty({ loading, hasError, onTryAgain })}
     />
   );

@@ -56,6 +56,25 @@ const postReducerHandler = {
       commentsByPostId,
     };
   },
+  [types.posts.removePost]: (
+    state: PostReducer,
+    action: PayloadAction<PostEntity['id']>,
+  ) => {
+    const posts = state.posts.filter(post => post.id !== action.payload);
+    return {
+      ...state,
+      posts,
+    };
+  },
+  [types.posts.removeAllPosts]: (state: PostReducer) => {
+    const posts = state.posts.filter(post =>
+      state.favoritePosts.includes(post.id),
+    );
+    return {
+      ...state,
+      posts,
+    };
+  },
 };
 
 export const postReducer = createReducer(

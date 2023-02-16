@@ -15,34 +15,37 @@ export function ListEmpty(props: ListEmptyProps): JSX.Element {
   // Styles
   const { containerStyle, buttonActionStyle } = listEmptyStyles();
 
-  if (hasError) {
-    return (
-      <View style={containerStyle} flex>
-        <Icon.WiffiOff color={Colors.grayLight} scale={2.5} />
-        <View height={Spacings.s6} />
-        <Text text textMuted>
-          {strings.labels.weHaveProblemsToLoadPosts}
-        </Text>
-        <View height={Spacings.s3} />
-        <ButtonIcon
-          loading={loading}
-          style={buttonActionStyle}
-          label={strings.labels.tryAgain}
-          onPress={onTryAgain}
-          Icon={() => Icon.ArrowRepeat({ color: Colors.white, scale: 0.5 })}
-        />
-      </View>
-    );
-  } else {
+  if (loading) {
     return (
       <View>
         {Array.from({ length: 15 }).map((_, index) => (
           <View key={index}>
-            <PostItem loading={loading} onPress={() => {}} />
+            <PostItem editMode={false} loading={loading} onPress={() => {}} />
             <Separator />
           </View>
         ))}
       </View>
     );
   }
+
+  return (
+    <View style={containerStyle} flex>
+      {Icon[hasError ? 'WiffiOff' : 'Layout']({
+        color: Colors.grayLight,
+        scale: 2.5,
+      })}
+      <View height={Spacings.s6} />
+      <Text text textMuted>
+        {strings.labels[hasError ? 'weHaveProblemsToLoadPosts' : 'noHavePosts']}
+      </Text>
+      <View height={Spacings.s3} />
+      <ButtonIcon
+        loading={loading}
+        style={buttonActionStyle}
+        label={strings.labels.tryAgain}
+        onPress={onTryAgain}
+        Icon={() => Icon.ArrowRepeat({ color: Colors.white, scale: 0.5 })}
+      />
+    </View>
+  );
 }
