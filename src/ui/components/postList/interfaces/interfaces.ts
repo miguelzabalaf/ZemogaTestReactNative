@@ -2,10 +2,17 @@ import { PostEntity } from './../../../../domain/entities/post.entity';
 
 export interface PostItemProps extends Partial<PostEntity> {
   onPress: () => void;
-  showContent: boolean;
+  loading?: boolean;
+  editMode: boolean;
 }
 
-export interface ListFooterProps {
-  renderAllData: boolean;
-  goToTop: () => void;
+export interface ListEmptyProps {
+  loading?: boolean;
+  hasError?: boolean;
+  onTryAgain: () => void;
+}
+
+export interface PostItemStylesProps {
+  isFavoritePost?: boolean;
+  editMode: boolean;
 }

@@ -13,7 +13,6 @@ export function Touchable(props: TouchableProps) {
     <Animated.View
       style={[{ transform: [{ scale: scaleValue }] }, containerStyle]}>
       <TouchableOpacity
-        {...props}
         style={contentStyle}
         activeOpacity={0.75}
         onPress={event => {
@@ -27,7 +26,8 @@ export function Touchable(props: TouchableProps) {
         onPressOut={event => {
           onPressOut && onPressOut(event);
           handleScaleOut();
-        }}>
+        }}
+        {...props}>
         {children}
       </TouchableOpacity>
     </Animated.View>

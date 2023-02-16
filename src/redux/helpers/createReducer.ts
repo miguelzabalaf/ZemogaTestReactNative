@@ -2,15 +2,15 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 interface Handler {
   [x: string]: (
-    state: Object,
-    action: PayloadAction<Object>,
+    state: any,
+    action: PayloadAction<any>,
   ) => {
-    [x: string]: Object;
+    [x: string]: any;
   };
 }
 
-export const createReducer = (initialState: Object, handler: Handler) => {
-  return (state = initialState, action: PayloadAction<Object>) => {
+export const createReducer = (initialState: any, handler: Handler) => {
+  return (state = initialState, action: PayloadAction<any>) => {
     return handler?.hasOwnProperty(action.type)
       ? handler[action.type](state, action)
       : state;

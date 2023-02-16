@@ -7,8 +7,12 @@ export interface ButtonIconProps extends TouchableProps {
   label: string;
   iconColor?: string;
   color?: string;
+  loading?: boolean;
+  disabled?: boolean;
 }
 
 export interface ButtonStylesProps {
   color?: ButtonIconProps['color'];
+  loading?: ButtonIconProps['loading'];
+  disabled?: ButtonIconProps['disabled'];
 }

@@ -1,9 +1,21 @@
 import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 import { Colors, Spacings } from 'react-native-ui-lib';
+import { PostItemStylesProps } from '../interfaces';
 
-export function postItemStyles() {
+export function postItemStyles(props: PostItemStylesProps) {
+  const { isFavoritePost, editMode } = props;
+  function getOpacity() {
+    if (editMode) {
+      if (isFavoritePost) {
+        return 0.25;
+      }
+      return 1;
+    }
+    return 1;
+  }
   return ScaledSheet.create({
     containerStyle: {
+      opacity: getOpacity(),
       paddingVertical: Spacings.s3,
       paddingHorizontal: Spacings.s3,
       flexDirection: 'row',
@@ -36,17 +48,17 @@ export function itemSeparatorStyles() {
   });
 }
 
-export function listFooterStyles() {
+export function listEmptyStyles() {
   return ScaledSheet.create({
     containerStyle: {
-      paddingVertical: Spacings.s3,
-    },
-    buttonArrowUpStyle: {
-      flex: 1,
-      height: moderateScale(75),
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: Colors.white,
+      paddingTop: moderateScale(150),
+    },
+    buttonActionStyle: {
+      width: moderateScale(50),
+      height: moderateScale(25),
+      marginVertical: Spacings.s3,
     },
   });
 }

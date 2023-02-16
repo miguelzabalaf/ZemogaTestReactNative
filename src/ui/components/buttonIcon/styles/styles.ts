@@ -3,12 +3,21 @@ import { Colors, Spacings } from 'react-native-ui-lib';
 import { ButtonStylesProps } from '../interfaces';
 
 export function buttonIconStyles(props: ButtonStylesProps) {
-  const { color } = props;
+  const { color, loading, disabled } = props;
+  function getBackgroundColor() {
+    if (loading || disabled) {
+      return Colors.grayLight;
+    }
+    if (color) {
+      return color;
+    }
+    return Colors.primary;
+  }
   return ScaledSheet.create({
     containerStyle: {
       flex: 1,
       height: moderateScale(50),
-      backgroundColor: color ?? Colors.primary,
+      backgroundColor: getBackgroundColor(),
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',

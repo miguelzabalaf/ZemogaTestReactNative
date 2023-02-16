@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { NavigationComponentProps } from 'react-native-navigation';
 
-export interface ScreenPorps extends NavigationComponentProps {
+export interface ScreenProps extends NavigationComponentProps {
   lastScreenName?: string;
 }
 

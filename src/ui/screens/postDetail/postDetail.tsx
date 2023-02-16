@@ -1,114 +1,128 @@
 import React from 'react';
 import { Layout } from '../../containers/layout';
-import { Text, View, Spacings, Colors, Toast } from 'react-native-ui-lib';
+import {
+  View,
+  Spacings,
+  Colors,
+  Toast,
+  ExpandableSection,
+} from 'react-native-ui-lib';
 import { PostDetailScreenProps } from './interfaces';
 import strings from './../../../constants/strings';
 import { Separator } from './../../../ui/components/separator';
-import MapView, { Marker } from 'react-native-maps';
 import { postDetailStyles } from './styles';
-import { ButtonIcon } from './../../../ui/components/buttonIcon';
 import { Icon } from './../../../ui/icons';
 import { useActionsController } from './controllers/actions.controller';
+import { useDataController } from './controllers/data.controller';
+import { HeaderExpandableSection } from 'src/ui/components/headerExpandableSection';
+import { PostDetailActions } from 'src/ui/screens/postDetail/postDetailActions';
+import { CommentListPreview } from 'src/ui/components/commentList/commentListPreview';
+import { PostHero } from 'src/ui/screens/postDetail/postHero';
+import { PostAuthor } from 'src/ui/screens/postDetail/postAuthor';
+import { PostMap } from 'src/ui/screens/postDetail/postMap';
+import { ScrollView } from 'react-native';
 
 export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
-  const { lastScreenName, title, body } = props;
-  const { containerMapStyle, mapStyle, containerActionsStyle } =
-    postDetailStyles();
+  // Props
+  const { lastScreenName, postId, componentId } = props;
+
+  // Styles
+  const { containerContentStyle, contentFooterStyle } = postDetailStyles();
+
+  // Controllers
+  const {
+    post,
+    isFavoritePost,
+    user,
+    comments,
+    loadingComments,
+    loadingUserInfo,
+    errorToLoadUserInfo,
+    errorToLoadComments,
+  } = useDataController({ postId });
   const {
     // States
     toastState,
-    // Actions
+    showComments,
+    // Methods
     onPressEmail,
     onPressPhone,
     onPressWebsite,
     onPressFavorite,
     onDismissToast,
-  } = useActionsController();
+    onPressComments,
+    onPressSeeAll,
+    getInitialRegion,
+  } = useActionsController({ postId, loadingComments, componentId });
   return (
     <Layout.Page
       showGoBack
       contentWithoutPaddingTop
       lastScreenName={lastScreenName}
-      IconRight={() => Icon.Star({ scale: 0.75, color: Colors.gray })}
+      withoutScroll
+      IconRight={() =>
+        Icon.Star({
+          scale: 0.75,
+          color: isFavoritePost ? Colors.yellow30 : Colors.gray,
+        })
+      }
       onPressIconRight={onPressFavorite}>
-      <Toast
-        visible={toastState.visible}
-        position={'top'}
-        autoDismiss={1500}
-        onDismiss={onDismissToast}
-        backgroundColor={Colors.primary}
-        message={toastState.message}
-      />
-
-      <Layout.ContentWithPaddingHorizontal>
-        <View height={Spacings.s3} />
-        <Text textMuted smallText>
-          {strings.labels.post}
-        </Text>
-        <Text title black>
-          {title}
-        </Text>
-        <View height={Spacings.s3} />
-        <Text text>{body}</Text>
-      </Layout.ContentWithPaddingHorizontal>
-      <View height={Spacings.s3 * 2} />
-      <Separator />
-      <View height={Spacings.s3 * 2} />
-      <Layout.ContentWithPaddingHorizontal>
-        <Text textMuted smallText>
-          {strings.labels.author}
-        </Text>
-        <Text subTitle>
-          Leanne Graham · <Text textMuted>Bret</Text>
-        </Text>
-        <Text text lowercase textMuted>
-          Sincere@april.biz
-        </Text>
-        <View height={Spacings.s3 * 2} />
-        <Text textMuted smallText>
-          {strings.labels.location}
-        </Text>
-        <View height={Spacings.s3} />
-      </Layout.ContentWithPaddingHorizontal>
-      <View style={containerMapStyle}>
-        <MapView
-          style={mapStyle}
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.05,
-            longitudeDelta: 0.05,
-          }}>
-          <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324 }} />
-        </MapView>
+      <View style={containerContentStyle}>
+        <Toast
+          visible={toastState.visible}
+          position={'top'}
+          autoDismiss={1500}
+          onDismiss={onDismissToast}
+          backgroundColor={toastState.color}
+          message={toastState.message}
+        />
+        <ScrollView>
+          <PostHero {...post} />
+          <View height={Spacings.s3} />
+          {!errorToLoadComments && (
+            <ExpandableSection
+              expanded={showComments}
+              onPress={onPressComments}
+              sectionHeader={
+                <HeaderExpandableSection
+                  loading={loadingComments}
+                  Icon={() => Icon.Comment({ color: Colors.gray, scale: 0.5 })}
+                  label={strings.labels.comments}
+                />
+              }>
+              <CommentListPreview
+                comments={comments.slice(0, 2)}
+                onPressSeeAll={() => onPressSeeAll(comments)}
+              />
+            </ExpandableSection>
+          )}
+          <View height={Spacings.s3} />
+          <Separator />
+          <View height={Spacings.s3 * 2} />
+          <PostAuthor
+            loading={loadingUserInfo}
+            hasError={errorToLoadUserInfo}
+            {...user}
+          />
+          <PostMap
+            {...user}
+            getInitialRegion={getInitialRegion}
+            hasError={errorToLoadUserInfo}
+          />
+        </ScrollView>
+        {!errorToLoadUserInfo && (
+          <View style={contentFooterStyle}>
+            <PostDetailActions
+              user={user}
+              loading={loadingUserInfo}
+              hasError={errorToLoadUserInfo}
+              onPressEmail={() => onPressEmail(user?.email || '')}
+              onPressPhone={() => onPressPhone(user?.phone || '')}
+              onPressWebsite={() => onPressWebsite(user?.website || '')}
+            />
+          </View>
+        )}
       </View>
-      <Layout.ContentWithPaddingHorizontal>
-        <View height={Spacings.s3 * 2} />
-        <Text textMuted smallText>
-          {strings.labels.actions}
-        </Text>
-        <View height={Spacings.s3} />
-        <View style={containerActionsStyle}>
-          <ButtonIcon
-            label={strings.labels.email}
-            Icon={Icon.Email}
-            onPress={() => onPressEmail('example@me.com')}
-            iconColor={Colors.white}
-          />
-          <ButtonIcon
-            label={strings.labels.website}
-            Icon={Icon.Website}
-            onPress={() => onPressWebsite('https://github.com/miguelzabalaf')}
-            iconColor={Colors.white}
-          />
-          <ButtonIcon
-            label={strings.labels.call}
-            Icon={Icon.Phone}
-            onPress={() => onPressPhone('3157707744')}
-            iconColor={Colors.white}
-          />
-        </View>
-      </Layout.ContentWithPaddingHorizontal>
     </Layout.Page>
   );
 }
