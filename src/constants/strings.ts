@@ -23,6 +23,8 @@ const labels = {
   hasBeenRemovedFromFavorites: 'Has been removed from favorites.',
   comments: 'Comments',
   seeAll: 'See all',
+  weHaveProblemsToLoadPosts: 'We have problems to load posts.',
+  tryAgain: 'Try again',
 };
 
 export default {

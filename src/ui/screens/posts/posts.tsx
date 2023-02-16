@@ -11,14 +11,28 @@ export function PostsScreen(props: ScreenProps): JSX.Element {
 
   // Controllers
   const { goToDetailBy } = useNavigationController({ componentId });
-  const { posts } = useDataController();
+  const {
+    // States
+    loadingPosts,
+    errorToLoadPosts,
+    // Data
+    posts,
+    // Methods
+    onTryAgainGetPosts,
+  } = useDataController();
 
   return (
     <Layout.Page
       withoutScroll
       contentWithoutPaddingTop
       lastScreenName={lastScreenName}>
-      <PostList posts={posts} goToDetailBy={goToDetailBy} />
+      <PostList
+        posts={posts}
+        goToDetailBy={goToDetailBy}
+        loading={loadingPosts}
+        hasError={errorToLoadPosts}
+        onTryAgain={onTryAgainGetPosts}
+      />
     </Layout.Page>
   );
 }

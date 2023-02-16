@@ -12,6 +12,7 @@ export function useFlatlistController<T>(props: FlatListControllerProps<T>) {
   const updateCellsBatchingPeriod = usualyHasMoreThan15Items ? 2000 : undefined;
   const onEndReachedThreshold = usualyHasMoreThan15Items ? 0.25 : undefined;
   const showGotoTopButton = usualyHasMoreThan15Items ? true : false;
+
   // States
   const [allDataRendered, setAllDataRendered] = useState(false);
   const flatListRef = useRef<FlatList<T>>(null);

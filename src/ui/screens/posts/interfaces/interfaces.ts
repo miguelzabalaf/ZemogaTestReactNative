@@ -7,4 +7,11 @@ export interface UseNavigationControllerProps
 export interface PostListProps {
   posts: Array<PostEntity>;
   goToDetailBy: (postId: PostEntity['id']) => void;
+  loading: boolean;
+  hasError?: boolean;
+  onTryAgain: () => void;
+}
+
+export interface OnGetAllPostsProps {
+  force?: boolean;
 }

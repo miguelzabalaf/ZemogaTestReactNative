@@ -35,3 +35,18 @@ export function itemSeparatorStyles() {
     },
   });
 }
+
+export function listEmptyStyles() {
+  return ScaledSheet.create({
+    containerStyle: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingTop: moderateScale(150),
+    },
+    buttonActionStyle: {
+      width: moderateScale(50),
+      height: moderateScale(25),
+      marginVertical: Spacings.s3,
+    },
+  });
+}

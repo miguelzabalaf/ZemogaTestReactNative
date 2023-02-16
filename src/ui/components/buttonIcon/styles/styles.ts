@@ -6,7 +6,7 @@ export function buttonIconStyles(props: ButtonStylesProps) {
   const { color, loading, disabled } = props;
   function getBackgroundColor() {
     if (loading || disabled) {
-      return Colors.gray;
+      return Colors.grayLight;
     }
     if (color) {
       return color;

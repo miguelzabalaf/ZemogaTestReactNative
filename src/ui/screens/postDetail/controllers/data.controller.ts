@@ -48,21 +48,10 @@ export function useDataController(props: UseDataControllerProps) {
 
   // Methods
   async function onGetPostInfo() {
-    try {
-      if (isNecessaryGetUserInfo) {
-        setLoadingUserInfo(true);
-        const payload = await getUserBy(post.userId);
-        dispatch<AddUserDispatchAction>(actAddUser(payload));
-        setLoadingUserInfo(false);
-        setErrorToLoadUserInfo(false);
-      }
-    } catch (error) {
-      console.log('error [getUserBy]', error);
-      setErrorToLoadUserInfo(true);
-    }
+    isNecessaryGetComments && setloadingComments(true);
+    isNecessaryGetUserInfo && setLoadingUserInfo(true);
     try {
       if (isNecessaryGetComments) {
-        setloadingComments(true);
         const commentsResp = await getCommentsBy(postId);
         dispatch<actAddCommentsByPostIdDispatchAction>(
           actAddCommentsByPostId({
@@ -76,6 +65,19 @@ export function useDataController(props: UseDataControllerProps) {
     } catch (error) {
       console.log('error [getCommentsBy]', error);
       setErrorToLoadComments(true);
+      setloadingComments(false);
+    }
+    try {
+      if (isNecessaryGetUserInfo) {
+        const payload = await getUserBy(post.userId);
+        dispatch<AddUserDispatchAction>(actAddUser(payload));
+        setLoadingUserInfo(false);
+        setErrorToLoadUserInfo(false);
+      }
+    } catch (error) {
+      console.log('error [getUserBy]', error);
+      setErrorToLoadUserInfo(true);
+      setLoadingUserInfo(false);
     }
   }
 
