@@ -1,4 +1,5 @@
 # Zemoga's Challenge: React Native
+![](https://github.com/miguelzabalaf/ZemogaTestReactNative/blob/master/public/assets/images/zemoga-challenge-poster.png)
 
 I hope and exceed your expectations. This react native(0.71.2) project based on clean architecture **DDD** (Domain Driven Design). I split this application in different layers with specific responsabilities: _Domain_, _Use cases_, _Adapters_, _Controllers_.
 
