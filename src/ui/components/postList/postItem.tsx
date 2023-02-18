@@ -1,22 +1,22 @@
 import React, { PureComponent } from 'react';
 import { View, Text, Colors } from 'react-native-ui-lib';
 import { postItemStyles } from './styles';
-import { Icon } from './../../../ui/icons';
-import { Touchable } from './../../containers/touchable';
+import { Icon } from 'src/ui/icons';
+import { Touchable } from 'src/ui/containers/touchable';
 import { PostItemProps } from './interfaces';
 import { capitalizeFirstLetter } from 'src/helpers/quickFunctions';
-import { Sekeleton } from '../skeleton';
+import { Sekeleton } from 'src/ui/components/skeleton';
 import { SkeletonSize } from 'src/ui/components/skeleton/interfaces/interfaces';
 
 export class PostItem extends PureComponent<PostItemProps> {
   render() {
-    const { title, onPress, isFavoritePost, loading, editMode } = this.props;
+    const { title, onPress, isFavorite, loading, editMode } = this.props;
     const { containerStyle, textContainerStyle, favoriteIconContainerStyle } =
-      postItemStyles({ isFavoritePost, editMode });
+      postItemStyles({ isFavorite, editMode });
     return (
       <Touchable
         onPress={() => {
-          if (editMode && isFavoritePost) {
+          if (editMode && isFavorite) {
             return;
           }
           onPress();
@@ -36,13 +36,13 @@ export class PostItem extends PureComponent<PostItemProps> {
             )}
           </View>
           <View style={favoriteIconContainerStyle}>
-            {editMode && !isFavoritePost && (
+            {editMode && !isFavorite && (
               <Icon.Trash scale={0.5} color={Colors.red30} />
             )}
             {loading && (
               <Sekeleton.Text size={SkeletonSize.Medium} width={17} />
             )}
-            {!loading && isFavoritePost && (
+            {!loading && isFavorite && (
               <Icon.Star scale={0.5} color={Colors.yellow30} />
             )}
           </View>

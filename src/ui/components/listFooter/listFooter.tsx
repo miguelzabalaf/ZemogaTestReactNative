@@ -3,9 +3,9 @@ import { View, Colors, Text, Spacings } from 'react-native-ui-lib';
 import { ListFooterProps } from './interfaces';
 import { ActivityIndicator } from 'react-native';
 import { listFooterStyles } from './styles';
-import { Touchable } from '../../containers/touchable';
-import { Icon } from '../../icons';
-import strings from '../../../constants/strings';
+import { Touchable } from 'src/ui/containers/touchable';
+import { Icon } from 'src/ui/icons';
+import strings from 'src/constants/strings';
 
 export function ListFooter(props: ListFooterProps): JSX.Element {
   const { allDataRendered, goToTop, showGotoTopButton } = props;

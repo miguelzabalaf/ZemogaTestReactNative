@@ -1,7 +1,7 @@
 import React from 'react';
-import { Layout } from '../../containers/layout';
+import { Layout } from 'src/ui/containers/layout';
 import { Spacings, Text, View } from 'react-native-ui-lib';
-import strings from '../../../constants/strings';
+import strings from 'src/constants/strings';
 import { PostAuthorProps } from './interfaces';
 import { Sekeleton } from 'src/ui/components/skeleton';
 import { SkeletonSize } from 'src/ui/components/skeleton/interfaces';

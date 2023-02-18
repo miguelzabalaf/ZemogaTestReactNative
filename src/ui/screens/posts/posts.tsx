@@ -1,13 +1,13 @@
 import React from 'react';
-import { Layout } from '../../containers/layout';
-import { ScreenProps } from './../../../ui/interfaces/interfaces';
-import { PostList } from './../../../ui/components/postList';
+import { Layout } from 'src/ui/containers/layout';
+import { ScreenProps } from 'src/ui/interfaces/interfaces';
+import { PostList } from 'src/ui/components/postList';
 import { useActionsController } from './controllers/actions.controller';
 import { useDataController } from './controllers/data.controller';
-import { Icon } from 'src/ui/icons';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { postStyles } from './styles';
 import { Touchable } from 'src/ui/containers/touchable';
+import strings from 'src/constants/strings';
 
 export function PostsScreen(props: ScreenProps): JSX.Element {
   // Props
@@ -27,8 +27,8 @@ export function PostsScreen(props: ScreenProps): JSX.Element {
     // Methods
     onTryAgainGetPosts,
     onToggleEditMode,
-    // Conditions
-    havePostsToDelete,
+    // Icons
+    IconRight,
   } = useDataController();
   const { onPressPost, onDeleteAllPosts } = useActionsController({
     componentId,
@@ -40,19 +40,8 @@ export function PostsScreen(props: ScreenProps): JSX.Element {
       withoutScroll
       contentWithoutPaddingTop
       lastScreenName={lastScreenName}
-      onPressIconRight={() => {
-        if (posts.length) {
-          onToggleEditMode();
-        }
-      }}
-      IconRight={() => {
-        if (havePostsToDelete) {
-          return editMode
-            ? Icon.Close({ scale: 0.75, color: Colors.gray })
-            : Icon.Pen({ scale: 0.75, color: Colors.gray });
-        }
-        return null;
-      }}>
+      onPressIconRight={onToggleEditMode}
+      IconRight={IconRight}>
       <View style={containerContentStyle}>
         <PostList
           posts={posts}
@@ -69,7 +58,7 @@ export function PostsScreen(props: ScreenProps): JSX.Element {
                 onDeleteAllPosts(onToggleEditMode);
               }}>
               <Text normal red30>
-                Delete all posts
+                {strings.labels.deleteAllPosts}
               </Text>
             </Touchable>
           </View>

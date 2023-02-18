@@ -1,7 +1,7 @@
 import React from 'react';
-import { Layout } from './../../containers/layout';
+import { Layout } from 'src/ui/containers/layout';
 import { View, Colors } from 'react-native-ui-lib';
-import strings from './../../../constants/strings';
+import strings from 'src/constants/strings';
 import { ButtonIcon } from 'src/ui/components/buttonIcon';
 import { postDetailActionsStyles } from './styles';
 import { PostDetailActionsProps } from './interfaces';

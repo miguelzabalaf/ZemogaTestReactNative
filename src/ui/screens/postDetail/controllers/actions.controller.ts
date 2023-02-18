@@ -31,7 +31,7 @@ export function useActionsController(props: UseActionsControllerProps) {
   const postFavorites = getAllFavoritePostelector();
 
   // Constants
-  const isFavoritePost = postFavorites?.includes(postId);
+  const isFavorite = postFavorites?.includes(postId);
 
   // Methods
   function onPressComments() {
@@ -66,8 +66,8 @@ export function useActionsController(props: UseActionsControllerProps) {
     );
     setToastState({
       visible: true,
-      color: isFavoritePost ? Colors.red30 : Colors.primary,
-      message: isFavoritePost
+      color: isFavorite ? Colors.red30 : Colors.primary,
+      message: isFavorite
         ? strings.labels.hasBeenRemovedFromFavorites
         : strings.labels.hasBeenAddedToFavorites,
     });

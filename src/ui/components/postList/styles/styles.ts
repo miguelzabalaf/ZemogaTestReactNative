@@ -3,10 +3,10 @@ import { Colors, Spacings } from 'react-native-ui-lib';
 import { PostItemStylesProps } from '../interfaces';
 
 export function postItemStyles(props: PostItemStylesProps) {
-  const { isFavoritePost, editMode } = props;
+  const { isFavorite, editMode } = props;
   function getOpacity() {
     if (editMode) {
-      if (isFavoritePost) {
+      if (isFavorite) {
         return 0.25;
       }
       return 1;

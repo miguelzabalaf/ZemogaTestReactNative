@@ -10,6 +10,8 @@ import { AddAllPostDispatchAction } from 'src/redux/reducers/post/interfaces/int
 import { postActions } from 'src/redux/actions/post.actions';
 import _ from 'lodash';
 import { OnGetAllPostsProps } from '../interfaces';
+import { Icon } from 'src/ui/icons';
+import { Colors } from 'react-native-ui-lib';
 
 export function useDataController() {
   // Use cases
@@ -53,20 +55,32 @@ export function useDataController() {
   }
 
   function onToggleEditMode() {
-    setEditMode(!editMode);
+    if (postsMutated.length) {
+      setEditMode(!editMode);
+    }
   }
 
   // Constants
   const postsMutated = _.map(posts, post => {
     return {
       ...post,
-      isFavoritePost: postFavorites?.includes(post.id),
+      isFavorite: postFavorites?.includes(post.id),
     };
   }).sort(a => {
-    return a.isFavoritePost ? -1 : 1;
+    return a.isFavorite ? -1 : 1;
   });
 
-  const havePostsToDelete = _.some(postsMutated, post => !post.isFavoritePost);
+  const havePostsToDelete = _.some(postsMutated, post => !post.isFavorite);
+
+  // Icons
+  function IconRight() {
+    if (havePostsToDelete) {
+      return editMode
+        ? Icon.Close({ scale: 0.75, color: Colors.gray })
+        : Icon.Pen({ scale: 0.75, color: Colors.gray });
+    }
+    return null;
+  }
 
   // Hooks
   useEffect(() => {
@@ -89,7 +103,7 @@ export function useDataController() {
     // Methods
     onTryAgainGetPosts,
     onToggleEditMode,
-    // Conditions
-    havePostsToDelete,
+    // Components
+    IconRight,
   };
 }

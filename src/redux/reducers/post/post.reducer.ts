@@ -1,5 +1,5 @@
 import { types } from 'src/redux/constants/types';
-import { createReducer } from '../../helpers/createReducer';
+import { createReducer } from 'src/redux/helpers/createReducer';
 import { PostReducer } from './interfaces/interfaces';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { PostEntity } from 'src/domain/entities/post.entity';

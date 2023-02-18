@@ -1,4 +1,4 @@
-import { PostEntity } from './../../../../domain/entities/post.entity';
+import { PostEntity } from 'src/domain/entities/post.entity';
 
 export interface PostItemProps extends Partial<PostEntity> {
   onPress: () => void;
@@ -13,6 +13,6 @@ export interface ListEmptyProps {
 }
 
 export interface PostItemStylesProps {
-  isFavoritePost?: boolean;
+  isFavorite?: boolean;
   editMode: boolean;
 }

@@ -1,14 +1,12 @@
-import { SvgProps } from 'react-native-svg';
 import { PageProps } from 'src/ui/containers/layout/interfaces';
 
-export interface TopBarProps {
-  lastScreenName?: PageProps['lastScreenName'];
-  showGoBack?: PageProps['showGoBack'];
+export interface TopBarProps
+  extends Pick<
+    PageProps,
+    'lastScreenName' | 'showGoBack' | 'IconRight' | 'onPressIconRight'
+  > {
   showBorderBottomOfTopBar?: boolean;
-  IconRight?: React.FC<SvgProps> | null;
-  onPressIconRight?: () => void;
 }
 
-export interface TopBarStyleProps {
-  showBorderBottomOfTopBar?: TopBarProps['showBorderBottomOfTopBar'];
-}
+export interface TopBarStyleProps
+  extends Pick<TopBarProps, 'showBorderBottomOfTopBar'> {}
