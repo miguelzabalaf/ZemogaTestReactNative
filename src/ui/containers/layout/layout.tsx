@@ -1,9 +1,9 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { ContainerProps } from './../../interfaces';
+import { ContainerProps } from 'src/ui/interfaces';
 import { contentWithPaddingHorizontalStyles, pageStyles } from './styles';
 import { PageProps } from './interfaces';
-import { TopBar } from './../../components/topBar';
+import { TopBar } from 'src/ui/components/topBar';
 import {
   SafeAreaSpacerView,
   Spacings,
@@ -11,7 +11,7 @@ import {
   View,
   Colors,
 } from 'react-native-ui-lib';
-import { usePageController } from '../controllers/usePage.controller';
+import { usePageController } from './controllers/usePage.controller';
 import strings from 'src/constants/strings';
 import { Icon } from 'src/ui/icons';
 

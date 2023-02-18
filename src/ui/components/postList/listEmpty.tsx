@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, View, Colors, Spacings } from 'react-native-ui-lib';
 import { PostItem } from './postItem';
-import { Separator } from './../separator';
+import { Separator } from 'src/ui/components/separator';
 import { ListEmptyProps } from './interfaces';
 import { Icon } from 'src/ui/icons';
 import strings from 'src/constants/strings';
-import { ButtonIcon } from '../buttonIcon';
+import { ButtonIcon } from 'src/ui/components/buttonIcon';
 import { listEmptyStyles } from './styles';
 
 export function ListEmpty(props: ListEmptyProps): JSX.Element {

@@ -1,5 +1,5 @@
 import { SvgProps } from 'react-native-svg';
-import { TouchableProps } from './../../../../ui/containers/touchable/interfaces/interfaces';
+import { TouchableProps } from 'src/ui/containers/touchable/interfaces/interfaces';
 
 export interface ButtonIconProps extends TouchableProps {
   onPress: () => void;
@@ -11,8 +11,5 @@ export interface ButtonIconProps extends TouchableProps {
   disabled?: boolean;
 }
 
-export interface ButtonStylesProps {
-  color?: ButtonIconProps['color'];
-  loading?: ButtonIconProps['loading'];
-  disabled?: ButtonIconProps['disabled'];
-}
+export interface ButtonStylesProps
+  extends Pick<ButtonIconProps, 'color' | 'loading' | 'disabled'> {}

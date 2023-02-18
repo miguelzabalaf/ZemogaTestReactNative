@@ -1,7 +1,7 @@
 import React from 'react';
 import { CommentsProps } from './interfaces';
-import { Layout } from './../../containers/layout';
-import { CommentList } from './../../components/commentList/commentList';
+import { Layout } from 'src/ui/containers/layout';
+import { CommentList } from 'src/ui/components/commentList/commentList';
 
 export function CommentsScreen(props: CommentsProps): JSX.Element {
   // Props

@@ -1,5 +1,5 @@
 import { NavigationComponentProps } from 'react-native-navigation';
-import { PostEntity } from './../../../../domain/entities/post.entity';
+import { PostEntity } from 'src/domain/entities/post.entity';
 
 export interface UseActionsControllerProps extends NavigationComponentProps {
   editMode: boolean;
