@@ -4,7 +4,7 @@ import { Animated } from 'react-native';
 const reboundanimationInitialConfig = {
   scale1: { toValue: 0.99, duration: 50 }, // In
   scale2: { toValue: 0.999, duration: 100 }, // Out
-  scale3: { toValue: 1, duration: 100 }, // Normal
+  scale3: { toValue: 1, duration: 100 }, // Initial
 };
 
 export function useReboundAnimation(

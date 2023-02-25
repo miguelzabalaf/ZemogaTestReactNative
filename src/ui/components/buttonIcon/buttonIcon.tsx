@@ -20,10 +20,10 @@ export function ButtonIcon(props: ButtonIconProps): JSX.Element {
         ) : (
           <>
             <View style={containerIconStyle}>
-              <Icon scale={0.5} color={iconColor} />
+              <Icon scale={0.35} color={iconColor} />
             </View>
             <View>
-              <Text normal white>
+              <Text smallText white>
                 {label}
               </Text>
             </View>

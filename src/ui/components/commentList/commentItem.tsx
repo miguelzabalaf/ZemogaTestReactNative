@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Text, View, Spacings } from 'react-native-ui-lib';
-import { CommentEntity } from './../../../domain/entities/comment.entity';
-import { Layout } from './../../containers/layout';
+import { CommentEntity } from 'src/domain/entities/comment.entity';
+import { Layout } from 'src/ui/containers/layout';
 import { commentItemStyles } from './styles';
 import { capitalizeFirstLetter } from 'src/helpers/quickFunctions';
-import { Separator } from '../separator';
+import { Separator } from 'src/ui/components/separator';
 
 export class CommentItem extends PureComponent<CommentEntity> {
   render() {

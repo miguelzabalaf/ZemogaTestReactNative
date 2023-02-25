@@ -1,11 +1,12 @@
 import React from 'react';
-import { View } from 'react-native-ui-lib';
+import { Text, View } from 'react-native-ui-lib';
 import { topBarStyles } from './styles';
 import { Layout } from './../../../ui/containers/layout';
 import { Icon } from './../../../ui/icons';
 import { Touchable } from './../../../ui/containers/touchable';
 import { TopBarProps } from './interfaces/interfaces';
 import { popTo } from './../../../navigation/helpers/navigation';
+import { Navigation } from 'react-native-navigation';
 
 export function TopBar(props: TopBarProps): JSX.Element {
   const {
@@ -14,6 +15,8 @@ export function TopBar(props: TopBarProps): JSX.Element {
     lastScreenName,
     IconRight,
     onPressIconRight,
+    isModal,
+    title,
   } = props;
   const { containerStyle, contentStyle, containerIconStyle } = topBarStyles({
     showBorderBottomOfTopBar,
@@ -24,12 +27,19 @@ export function TopBar(props: TopBarProps): JSX.Element {
         <View style={contentStyle}>
           <View style={containerIconStyle}>
             {showGoBack && (
-              <Touchable onPress={() => popTo({ screenName: lastScreenName })}>
+              <Touchable
+                onPress={() => {
+                  if (isModal) {
+                    Navigation.dismissAllModals();
+                  } else {
+                    popTo({ screenName: lastScreenName });
+                  }
+                }}>
                 <Icon.ArrowLeft />
               </Touchable>
             )}
           </View>
-          <Icon.ZemogaLogo />
+          {isModal ? <Text titlePage>{title}</Text> : <Icon.ZemogaLogo />}
           <View style={containerIconStyle}>
             {IconRight && (
               <Touchable onPress={onPressIconRight}>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Layout } from './../../containers/layout';
-import { Icon } from './../../icons';
+import { Layout } from 'src/ui/containers/layout';
+import { Icon } from 'src/ui/icons';
 import { ScreenProps } from 'src/ui/interfaces/interfaces';
 import { useNavigationController } from './controllers/useNavigation.controller';
 

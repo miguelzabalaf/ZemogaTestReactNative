@@ -1,17 +1,18 @@
 import React from 'react';
-import { Layout } from '../../containers/layout';
+import { Layout } from 'src/ui/containers/layout';
 import {
   View,
   Spacings,
   Colors,
   Toast,
   ExpandableSection,
+  Text,
 } from 'react-native-ui-lib';
 import { PostDetailScreenProps } from './interfaces';
-import strings from './../../../constants/strings';
-import { Separator } from './../../../ui/components/separator';
+import strings from 'src/constants/strings';
+import { Separator } from 'src/ui/components/separator';
 import { postDetailStyles } from './styles';
-import { Icon } from './../../../ui/icons';
+import { Icon } from 'src/ui/icons';
 import { useActionsController } from './controllers/actions.controller';
 import { useDataController } from './controllers/data.controller';
 import { HeaderExpandableSection } from 'src/ui/components/headerExpandableSection';
@@ -27,12 +28,13 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
   const { lastScreenName, postId, componentId } = props;
 
   // Styles
-  const { containerContentStyle, contentFooterStyle } = postDetailStyles();
+  const { containerContentStyle, contentFooterStyle, toastContainerStyle } =
+    postDetailStyles();
 
   // Controllers
   const {
     post,
-    isFavoritePost,
+    isFavorite,
     user,
     comments,
     loadingComments,
@@ -63,19 +65,27 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
       IconRight={() =>
         Icon.Star({
           scale: 0.75,
-          color: isFavoritePost ? Colors.yellow30 : Colors.gray,
+          color: isFavorite ? Colors.yellow30 : Colors.gray,
         })
       }
       onPressIconRight={onPressFavorite}>
       <View style={containerContentStyle}>
         <Toast
+          centerMessage
           visible={toastState.visible}
           position={'top'}
           autoDismiss={1500}
           onDismiss={onDismissToast}
-          backgroundColor={toastState.color}
-          message={toastState.message}
-        />
+          backgroundColor={'transparent'}>
+          <View
+            paddingV-10
+            backgroundColor={toastState.color}
+            style={toastContainerStyle}>
+            <Text text center white>
+              {toastState.message}
+            </Text>
+          </View>
+        </Toast>
         <ScrollView>
           <PostHero {...post} />
           <View height={Spacings.s3} />

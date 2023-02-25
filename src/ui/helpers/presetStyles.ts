@@ -14,6 +14,7 @@ export function presetStyles() {
 
   Typography.loadTypographies({
     title: typography.title,
+    titlePage: typography.titlePage,
     subTitle: typography.subTitle,
     textCenter: typography.textCenter,
     text: typography.text,

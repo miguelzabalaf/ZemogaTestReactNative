@@ -1,5 +1,5 @@
 import { ScreenProps } from 'src/ui/interfaces';
-import { PostEntity } from './../../../../domain/entities/post.entity';
+import { PostEntity } from 'src/domain/entities/post.entity';
 import { UserEntity } from 'src/domain/entities/user.entity';
 
 export interface PostDetailScreenProps extends ScreenProps {

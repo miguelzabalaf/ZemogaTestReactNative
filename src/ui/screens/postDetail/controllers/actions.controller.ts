@@ -7,13 +7,14 @@ import { AddPostIdToFavoritesDispatchAction } from 'src/redux/reducers/post/inte
 import { UseActionsControllerProps } from '../interfaces';
 import { getAllFavoritePostelector } from 'src/redux/selectors/post.selector';
 import { Colors } from 'react-native-ui-lib';
-import { navigateTo } from 'src/navigation/helpers/navigation';
 import { CommentEntity } from 'src/domain/entities/comment.entity';
 import { formatNumber } from 'src/helpers/quickFunctions';
+import { Navigation } from 'react-native-navigation';
+import { getCommentsModal } from 'src/navigation/modals/comments';
 
 export function useActionsController(props: UseActionsControllerProps) {
   // Props
-  const { componentId, postId, loadingComments } = props;
+  const { postId, loadingComments } = props;
 
   // States
   const [showComments, setShowComments] = useState(false);
@@ -31,7 +32,7 @@ export function useActionsController(props: UseActionsControllerProps) {
   const postFavorites = getAllFavoritePostelector();
 
   // Constants
-  const isFavoritePost = postFavorites?.includes(postId);
+  const isFavorite = postFavorites?.includes(postId);
 
   // Methods
   function onPressComments() {
@@ -41,11 +42,7 @@ export function useActionsController(props: UseActionsControllerProps) {
   }
 
   function onPressSeeAll(comments: Array<CommentEntity>) {
-    navigateTo({
-      componentId,
-      screenName: strings.screens.comments,
-      props: { comments },
-    });
+    Navigation.showModal(getCommentsModal({ comments }));
   }
 
   async function onPressEmail(email: string) {
@@ -66,8 +63,8 @@ export function useActionsController(props: UseActionsControllerProps) {
     );
     setToastState({
       visible: true,
-      color: isFavoritePost ? Colors.red30 : Colors.primary,
-      message: isFavoritePost
+      color: isFavorite ? Colors.red30 : Colors.primary,
+      message: isFavorite
         ? strings.labels.hasBeenRemovedFromFavorites
         : strings.labels.hasBeenAddedToFavorites,
     });

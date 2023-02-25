@@ -1,9 +1,9 @@
 import React from 'react';
-import { PostEntity } from '../../../domain/entities/post.entity';
-import { Layout } from '../../containers/layout';
+import { PostEntity } from 'src/domain/entities/post.entity';
+import { Layout } from 'src/ui/containers/layout';
 import { Spacings, Text, View } from 'react-native-ui-lib';
-import strings from '../../../constants/strings';
-import { capitalizeFirstLetter } from '../../../helpers/quickFunctions';
+import strings from 'src/constants/strings';
+import { capitalizeFirstLetter } from 'src/helpers/quickFunctions';
 
 export function PostHero(props: Partial<PostEntity>) {
   // Props

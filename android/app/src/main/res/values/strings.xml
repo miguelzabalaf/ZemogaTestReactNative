@@ -1,4 +1,3 @@
 <resources>
     <string name="app_name">ZMG TEST RN</string>
-      <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCe0GNW4L0d-YcfkwwfRxF1kDLScYG7EOQ</string>
 </resources>

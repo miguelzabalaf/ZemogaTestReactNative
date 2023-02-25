@@ -38,7 +38,7 @@ export function useDataController(props: UseDataControllerProps) {
   // Selectors
   const post = getPostByIdSelector(postId);
   const postFavorites = getAllFavoritePostelector();
-  const isFavoritePost = postFavorites?.includes(postId);
+  const isFavorite = postFavorites?.includes(postId);
   const user = getUserByIdSelector(post?.userId);
   const comments = getCommentsByPostIdSelector(postId);
 
@@ -88,7 +88,7 @@ export function useDataController(props: UseDataControllerProps) {
 
   return {
     post,
-    isFavoritePost,
+    isFavorite,
     user,
     comments,
     loadingUserInfo,

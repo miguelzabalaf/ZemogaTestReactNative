@@ -1,9 +1,9 @@
 import React from 'react';
 import { CommentListProps } from './interfaces';
 import { CommentItem } from './commentItem';
-import { CommentEntity } from '../../../domain/entities/comment.entity';
-import { useFlatlistController } from './../../controllers/flatList.controller';
-import { ListFooter } from '../listFooter';
+import { CommentEntity } from 'src/domain/entities/comment.entity';
+import { useFlatlistController } from 'src/ui/controllers/flatList.controller';
+import { ListFooter } from 'src/ui/components/listFooter';
 import { FlatList } from 'react-native';
 import { Spacings, View } from 'react-native-ui-lib';
 

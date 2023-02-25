@@ -1,13 +1,14 @@
 const screens = {
-  splash: 'SPLASH_SCREEN',
-  posts: 'POSTS_SCREEN',
-  postDetail: 'POST_DETAIL_SCREEN',
-  comments: 'COMMENTS_SCREEN',
+  splash: 'Splash',
+  posts: 'Posts',
+  postDetail: 'Post Detail',
+  comments: 'Comments',
 };
 
 const stacks = {
   init: 'INIT_STACK',
   posts: 'POSTS_STACK',
+  comments: 'COMMENTS_STACK',
 };
 
 const labels = {

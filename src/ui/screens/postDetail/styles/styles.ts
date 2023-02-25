@@ -22,6 +22,11 @@ export function postDetailStyles() {
       flexDirection: 'row',
       gap: Spacings.s3,
     },
+    toastContainerStyle: {
+      marginTop: moderateScale(isIOS() ? 5 : 0),
+      marginHorizontal: moderateScale(isIOS() ? 15 : 0),
+      borderRadius: moderateScale(isIOS() ? 8 : 0),
+    },
   });
 }
 
@@ -30,8 +35,8 @@ export function postDetailActionsStyles() {
     containerStyle: {
       flexDirection: 'row',
       gap: Spacings.s3,
-      height: moderateScale(100),
-      paddingBottom: moderateScale(isIOS() ? 25 : 20),
+      height: moderateScale(isIOS() ? 75 : 60),
+      paddingBottom: moderateScale(isIOS() ? 35 : 20),
       paddingTop: moderateScale(20),
     },
   });
