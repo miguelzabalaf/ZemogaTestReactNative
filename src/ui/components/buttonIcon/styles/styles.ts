@@ -1,6 +1,7 @@
 import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 import { Colors, Spacings } from 'react-native-ui-lib';
 import { ButtonStylesProps } from '../interfaces';
+import { isIOS } from 'src/helpers/quickFunctions';
 
 export function buttonIconStyles(props: ButtonStylesProps) {
   const { color, loading, disabled } = props;
@@ -15,13 +16,13 @@ export function buttonIconStyles(props: ButtonStylesProps) {
   }
   return ScaledSheet.create({
     containerStyle: {
-      flex: 1,
-      height: moderateScale(50),
+      height: moderateScale(40),
       backgroundColor: getBackgroundColor(),
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
       width: '100%',
+      borderRadius: moderateScale(isIOS() ? 8 : 0),
     },
     containerIconStyle: {
       paddingRight: Spacings.s3,

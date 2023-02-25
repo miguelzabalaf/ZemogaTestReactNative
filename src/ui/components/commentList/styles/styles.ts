@@ -1,6 +1,7 @@
 import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 import { Colors, Spacings } from 'react-native-ui-lib';
 import { isIOS } from 'src/helpers/quickFunctions';
+import { fonts } from 'src/ui/constants/fonts';
 
 export function commentItemStyles() {
   return ScaledSheet.create({
@@ -13,7 +14,7 @@ export function commentItemStyles() {
     badgestyle: {
       width: moderateScale(isIOS() ? 25 : 30),
       height: moderateScale(isIOS() ? 25 : 30),
-      borderRadius: moderateScale(15),
+      borderRadius: moderateScale(isIOS() ? 5 : 15),
       backgroundColor: Colors.primary,
       justifyContent: 'center',
       alignItems: 'center',
@@ -23,6 +24,7 @@ export function commentItemStyles() {
       color: Colors.white,
       textTransform: 'uppercase',
       fontWeight: '700',
+      fontFamily: fonts.montserratRegular,
     },
     perfilHeaderStyle: {
       height: 'auto',
@@ -33,15 +35,18 @@ export function commentItemStyles() {
       fontSize: moderateScale(12),
       color: Colors.black,
       fontWeight: '600',
+      fontFamily: fonts.montserratRegular,
     },
     perfilEmailStyle: {
       fontSize: moderateScale(10),
       color: Colors.textMuted,
       textTransform: 'lowercase',
+      fontFamily: fonts.montserratRegular,
     },
     bodyStyle: {
       color: Colors.black,
       fontSize: moderateScale(12),
+      fontFamily: fonts.montserratRegular,
     },
   });
 }

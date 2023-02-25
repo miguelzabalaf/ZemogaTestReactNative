@@ -26,6 +26,8 @@ export function Page(props: PageProps): JSX.Element {
     lastScreenName,
     IconRight,
     onPressIconRight,
+    isModal,
+    title,
   } = props;
   const { containerStyle, contentStyle, connectionStyle } = pageStyles({
     contentWithoutPaddingTop,
@@ -38,11 +40,13 @@ export function Page(props: PageProps): JSX.Element {
       <SafeAreaSpacerView />
       {!hideTopBar && (
         <TopBar
+          isModal={isModal}
           showBorderBottomOfTopBar={showBorderBottomOfTopBar}
           showGoBack={showGoBack}
           lastScreenName={lastScreenName}
           IconRight={IconRight}
           onPressIconRight={onPressIconRight}
+          title={title}
         />
       )}
       {!hideTopBar && !isUserConnected && (
