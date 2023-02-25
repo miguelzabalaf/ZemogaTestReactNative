@@ -1,7 +1,9 @@
-import { ContainerProps } from 'src/ui/interfaces/interfaces';
+import { ContainerProps, ScreenProps } from 'src/ui/interfaces/interfaces';
 import { SvgProps } from 'react-native-svg';
 
-export interface PageProps extends ContainerProps {
+export interface PageProps
+  extends ContainerProps,
+    Pick<ScreenProps, 'isModal' | 'title'> {
   withoutScroll?: boolean;
   contentWithoutPaddingTop?: boolean;
   center?: boolean;

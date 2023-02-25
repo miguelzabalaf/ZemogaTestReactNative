@@ -6,6 +6,7 @@ import {
   Colors,
   Toast,
   ExpandableSection,
+  Text,
 } from 'react-native-ui-lib';
 import { PostDetailScreenProps } from './interfaces';
 import strings from 'src/constants/strings';
@@ -27,7 +28,8 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
   const { lastScreenName, postId, componentId } = props;
 
   // Styles
-  const { containerContentStyle, contentFooterStyle } = postDetailStyles();
+  const { containerContentStyle, contentFooterStyle, toastContainerStyle } =
+    postDetailStyles();
 
   // Controllers
   const {
@@ -69,13 +71,21 @@ export function PostDetailScreen(props: PostDetailScreenProps): JSX.Element {
       onPressIconRight={onPressFavorite}>
       <View style={containerContentStyle}>
         <Toast
+          centerMessage
           visible={toastState.visible}
           position={'top'}
           autoDismiss={1500}
           onDismiss={onDismissToast}
-          backgroundColor={toastState.color}
-          message={toastState.message}
-        />
+          backgroundColor={'transparent'}>
+          <View
+            paddingV-10
+            backgroundColor={toastState.color}
+            style={toastContainerStyle}>
+            <Text text center white>
+              {toastState.message}
+            </Text>
+          </View>
+        </Toast>
         <ScrollView>
           <PostHero {...post} />
           <View height={Spacings.s3} />

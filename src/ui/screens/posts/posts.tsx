@@ -57,7 +57,7 @@ export function PostsScreen(props: ScreenProps): JSX.Element {
               onPress={() => {
                 onDeleteAllPosts(onToggleEditMode);
               }}>
-              <Text normal red30>
+              <Text text red30>
                 {strings.labels.deleteAllPosts}
               </Text>
             </Touchable>

@@ -5,13 +5,15 @@ import { CommentList } from 'src/ui/components/commentList/commentList';
 
 export function CommentsScreen(props: CommentsProps): JSX.Element {
   // Props
-  const { lastScreenName, comments } = props;
+  const { lastScreenName, comments, isModal, title } = props;
   return (
     <Layout.Page
       showGoBack
       withoutScroll
       contentWithoutPaddingTop
-      lastScreenName={lastScreenName}>
+      isModal={isModal}
+      lastScreenName={lastScreenName}
+      title={title}>
       <CommentList comments={comments} />
     </Layout.Page>
   );

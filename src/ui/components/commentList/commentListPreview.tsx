@@ -19,7 +19,9 @@ export function CommentListPreview(
         return <CommentItem {...comment} key={index} />;
       })}
       <Touchable onPress={onPressSeeAll} style={seeAlButtonStyle}>
-        <Text primary>{strings.labels.seeAll}</Text>
+        <Text smallText primary>
+          {strings.labels.seeAll}
+        </Text>
       </Touchable>
     </View>
   );

@@ -1,5 +1,6 @@
 import { ScaledSheet } from 'react-native-size-matters';
 import { Spacings, Colors } from 'react-native-ui-lib';
+import { fonts } from 'src/ui/constants/fonts';
 
 export function headerExpandableSectionStyles() {
   return ScaledSheet.create({
@@ -11,6 +12,7 @@ export function headerExpandableSectionStyles() {
     },
     labelStyle: {
       color: Colors.textMuted,
+      fontFamily: fonts.montserratRegular,
     },
     containerIconStyle: {
       marginHorizontal: Spacings.s3,
