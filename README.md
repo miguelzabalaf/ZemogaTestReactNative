@@ -1,4 +1,5 @@
 # Zemoga's Challenge: React Native
+
 ![](https://github.com/miguelzabalaf/ZemogaTestReactNative/blob/master/public/assets/images/zemoga-challenge-poster.png)
 
 I hope and exceed your expectations. This react native(0.71.2) project based on clean architecture **DDD** (Domain Driven Design). I split this application in different layers with specific responsabilities: _Domain_, _Use cases_, _Adapters_, _Controllers_.
@@ -14,9 +15,7 @@ yarn install
 2. Install pods:
 
 ```sh
-cd ios/ && pod install && cd ..
-# --- or ---
-npx pod-install
+yarn pod:install
 ```
 
 3. Run metro in other terminal tap (Optional):
@@ -25,7 +24,7 @@ npx pod-install
 yarn start
 ```
 
-4. Run in iOS simulator:
+1. Run in iOS simulator, also you can open Xcode and run 2 different schemas (Debug or Release), with this command you can run in debug mode:
 
 ```sh
 yarn ios
@@ -37,17 +36,25 @@ yarn ios
 yarn android
 ```
 
-6 .Generate APK (Optional):
-
-```sh
-yarn android:build:apk
-```
-
 If you have any problem, these're my actual global versions:
 
 - node: v16.16.0
 - yarn: 1.22.19
 - metro: v0.73.7
+
+Other commands:
+
+1. Gradlew clean:
+
+```sh
+yarn android:clean
+```
+
+2. Generate APK:
+
+```sh
+yarn android:build:apk
+```
 
 ## Folders
 

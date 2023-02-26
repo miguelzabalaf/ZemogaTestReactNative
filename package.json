@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "npx tsc && jest --coverage && cd android && ./gradlew  clean && cd .. && react-native run-android",
+    "android:clean": "cd android && ./gradlew clean && cd ..",
+    "android": "npx tsc && jest --coverage && yarn android:clean && react-native run-android",
     "android:build:apk": "npx tsc && jest --coverage && cd android && ./gradlew assembleRelease && cd ..",
+    "pod:install": "cd ios && pod install && cd ..",
     "ios": "npx tsc && jest --coverage && react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
