@@ -17,9 +17,10 @@ export const stackOptions: Options = {
   },
   animations: {
     push: {
+      waitForRender: true,
       enabled: true,
       content: {
-        waitForRender: false,
+        waitForRender: true,
         translationX: {
           from: require('react-native').Dimensions.get('window').width,
           to: 0,
@@ -42,7 +43,9 @@ export const stackOptions: Options = {
       },
     },
     pop: {
+      waitForRender: true,
       content: {
+        waitForRender: true,
         translationX: {
           from: 0,
           to: require('react-native').Dimensions.get('window').width,
@@ -59,6 +62,8 @@ export const stackOptions: Options = {
       },
     },
     setRoot: {
+      waitForRender: true,
+      enabled: true,
       alpha: {
         duration: 500,
         interpolation: {
